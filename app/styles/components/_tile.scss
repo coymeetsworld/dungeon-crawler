@@ -10,8 +10,9 @@ td {
 	background-color: #bbb;
 	width: 1em;
 	height: 1em;
-	
-	.characterPosition {
-		background-color: limegreen;
+
+	&.character-position {
+		background-color: #39ff14;
 	}
+	
 }

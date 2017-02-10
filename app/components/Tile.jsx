@@ -4,9 +4,11 @@ import {connect} from 'react-redux';
 class Tile extends React.Component {
 	
 	render() {
-		let {dispatch, x, y} = this.props;	
+		let {dispatch, x, y, tileClasses} = this.props;	
+		
+		console.log(tileClasses);
 		return (
-			<td key={'col' + y}></td>
+			<td key={'col' + y} className={tileClasses}></td>
 		)
 	}
 }

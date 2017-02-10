@@ -30,6 +30,8 @@ export var configure = () => {
 		maxhp: 25,
 		hp: 25,
 		xp: 0,
+		x: 5,
+		y: 8
 	}
 	//xp to level should be constant and function defined elsewhere
 	/*weapons an object with strength parameter?

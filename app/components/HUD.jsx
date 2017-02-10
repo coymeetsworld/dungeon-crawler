@@ -7,7 +7,6 @@ export class HUD extends React.Component {
 	render() {
 
 		let {character} = this.props;	
-		console.log(character);
 		
 		return(
 			<div className="character-attributes">

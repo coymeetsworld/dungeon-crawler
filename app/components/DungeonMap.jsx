@@ -1,6 +1,6 @@
 import React from 'react';
 import Tile from 'Tile';
-
+import {setLocation} from 'actions';
 import {connect} from 'react-redux';
 
 export class DungeonMap extends React.Component {
@@ -9,16 +9,34 @@ export class DungeonMap extends React.Component {
 		
 		let {dispatch, dungeon, character} = this.props;
 		let dungeonMap = dungeon.map;
+		console.log("Character: " + character);
+		
+		/* Will use to put items, walls, monsters, etc. For now just character. */
+		let getTileClasses = (x, y) => {
+			if (character.x === x && character.y === y) {					
+				return "character-position";
+			}
+			
+
+			
+		}
 
 		let generateMap = () => {				
 			
-			let x = dungeonMap.map((row, rIndex) => {
+			let map = dungeonMap.map((row, rIndex) => {
 				let r = row.map((col, cIndex) => {						
-					return <Tile x={cIndex} y={rIndex} key={cIndex+''+rIndex}/>
+					return (
+						<Tile x={cIndex} 
+									y={rIndex} 
+									key={cIndex+''+rIndex}
+									tileClasses={getTileClasses(cIndex,rIndex)}
+						/>
+					);
 				});
 				return <tr key={'row'+rIndex}>{r}</tr>	
 			});
-			return x;	
+			
+			return map;	
 		}
 		
 		return (
