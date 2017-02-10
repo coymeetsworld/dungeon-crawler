@@ -7,10 +7,12 @@ export class DungeonMap extends React.Component {
 
 	render() {
 		
-		let {dispatch, dungeon} = this.props;
+		let {dispatch, dungeon, character} = this.props;
+		let dungeonMap = dungeon.map;
+
 		let generateMap = () => {				
 			
-			let x = dungeon.map.map((row, rIndex) => {
+			let x = dungeonMap.map((row, rIndex) => {
 				let r = row.map((col, cIndex) => {						
 					return <Tile x={cIndex} y={rIndex} key={cIndex+''+rIndex}/>
 				});

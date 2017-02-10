@@ -3,16 +3,20 @@ import {connect} from 'react-redux';
 
 
 export class HUD extends React.Component {
-	
+
 	render() {
+
+		let {character} = this.props;	
+		console.log(character);
+		
 		return(
-			<div>
-				<span>Name: </span>
-				<span>Level: </span>
-				<span>HP: 25/25</span>
-				<span>Weapon: </span>					
-				<span>XP: </span>
-				<span>To next level:</span>
+			<div className="character-attributes">
+				<span className="character-attribute">Name: {character.name}</span>
+				<span className="character-attribute">Level: {character.level}</span>
+				<span className="character-attribute">HP: {character.hp}/{character.maxhp}</span>
+				<span className="character-attribute">Weapon: {character.weapon ? character.weapon : 'none'}</span>					
+				<span className="character-attribute">XP: {character.xp}</span>
+				<span className="character-attribute">To next level: TBD</span>
 			</div>
 		)
 	}

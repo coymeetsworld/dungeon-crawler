@@ -1,5 +1,5 @@
 import { combineReducers, createStore, compose } from 'redux';
-import { dungeonMapReducer } from 'reducers';
+import { dungeonMapReducer, characterReducer} from 'reducers';
 
 const MAP_DIMENSIONS_X = 30;
 const MAP_DIMENSIONS_Y = 50;
@@ -7,7 +7,8 @@ const MAP_DIMENSIONS_Y = 50;
 export var configure = () => {
 	
 	const reducer = combineReducers({
-		dungeon: dungeonMapReducer
+		dungeon: dungeonMapReducer,
+		character: characterReducer
 	});
 	
 	let defaultMap = [MAP_DIMENSIONS_X];
@@ -21,10 +22,28 @@ export var configure = () => {
 		}
 	}
 	
+	//Faro, Jin
+	let defaultCharacter = {
+		name: 'Trey',
+		weapon: undefined,
+		level: 1,
+		maxhp: 25,
+		hp: 25,
+		xp: 0,
+	}
+	//xp to level should be constant and function defined elsewhere
+	/*weapons an object with strength parameter?
+	const weapons = {
+		'dagger': 10,
+		'club', 20,
+		'sword': 40,
+		'2h sword': 55
+	}
+	*/
 	
 	//console.log(defaultMap);
 	
-	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_X, height: MAP_DIMENSIONS_Y }};
+	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_X, height: MAP_DIMENSIONS_Y }, character: defaultCharacter};
 	
 	const store = createStore(reducer, initialState, compose(
 		window.devToolsExtension ? window.devToolsExtension() : f => f

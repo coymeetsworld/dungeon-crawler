@@ -3,11 +3,15 @@
 table {
 	margin: 0 auto;
 	border-collapse: collapse;
-	border: solid 3px black; /* Also for debugging purposes */
+	border: solid 5px #3f250b; /* Also for debugging purposes */
 }
 td {
 	border: solid 1px black; /* just in for debugging purposes */
 	background-color: #bbb;
 	width: 1em;
 	height: 1em;
+	
+	.characterPosition {
+		background-color: limegreen;
+	}
 }
