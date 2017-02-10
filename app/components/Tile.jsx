@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 class Tile extends React.Component {
 	
 	render() {
-		console.log("Render called");
 		let {dispatch, x, y} = this.props;	
 		return (
 			<td key={'col' + y}></td>

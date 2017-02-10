@@ -7,11 +7,10 @@ export class DungeonMap extends React.Component {
 
 	render() {
 		
-		let {dispatch, dungeonMap} = this.props;
-		
+		let {dispatch, dungeon} = this.props;
 		let generateMap = () => {				
 			
-			let x = dungeonMap.map((row, rIndex) => {
+			let x = dungeon.map.map((row, rIndex) => {
 				let r = row.map((col, cIndex) => {						
 					return <Tile x={cIndex} y={rIndex} key={cIndex+''+rIndex}/>
 				});
@@ -19,7 +18,6 @@ export class DungeonMap extends React.Component {
 			});
 			return x;	
 		}
-		
 		
 		return (
 			<div>
@@ -31,7 +29,6 @@ export class DungeonMap extends React.Component {
 			</div>
 		);
 	}
-		
 }
 
 const mapStateToProps = (state) => {
