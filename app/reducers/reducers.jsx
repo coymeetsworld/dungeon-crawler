@@ -22,19 +22,22 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 		switch(direction) {
 			case 'LEFT':
-			
-				if (charX-1 >= 0) {
+				console.log("newX: " + charX-1 + " y: " + charY + " isWall: " + dungeonMap[charX-1][charY].isWall);
+
+				if (charX-1 >= 0 && !dungeonMap[charY][charX-1].isWall) {
 					newDungeonMap = dungeonMap.map((row, rIndex) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
 								return {
 									containsCharacter: false,
-									containsMonster: false
+									containsMonster: false,
+									isWall: false
 								}
 							} else if (cIndex === charX-1 && rIndex === charY) {
 								return {
 									containsCharacter: true,
-									containsMonster: false
+									containsMonster: false,
+									isWall: false
 								}
 							}
 							return col;
@@ -48,18 +51,20 @@ export const dungeonMapReducer = (state = {}, action) => {
 				break;
 
 			case 'RIGHT':
-				if (charX+1 < mapWidth) {
+				if (charX+1 < mapWidth && !dungeonMap[charY][charX+1].isWall) {
 					newDungeonMap = dungeonMap.map((row, rIndex) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
 								return {
 									containsCharacter: false,
-									containsMonster: false
+									containsMonster: false,
+									isWall: false
 								}
 							} else if (cIndex === charX+1 && rIndex === charY) {
 								return {
 									containsCharacter: true,
-									containsMonster: false
+									containsMonster: false,
+									isWall: false
 								}
 							}
 							return col;
@@ -73,18 +78,20 @@ export const dungeonMapReducer = (state = {}, action) => {
 				break;
 
 			case 'UP':
-				if (charY-1 >= 0) {
+				if (charY-1 >= 0 && !dungeonMap[charY-1][charX].isWall) {
 					newDungeonMap = dungeonMap.map((row, rIndex) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
 								return {
 									containsCharacter: false,
-									containsMonster: false
+									containsMonster: false,
+									isWall: false
 								}
 							} else if (cIndex === charX && rIndex === charY-1) {
 								return {
 									containsCharacter: true,
-									containsMonster: false
+									containsMonster: false,
+									isWall: false
 								}
 							}
 							return col;
@@ -98,18 +105,20 @@ export const dungeonMapReducer = (state = {}, action) => {
 				break;
 
 			case 'DOWN':
-				if (charY+1 < mapHeight) {
+				if (charY+1 < mapHeight && !dungeonMap[charY+1][charX].isWall) {
 					newDungeonMap = dungeonMap.map((row, rIndex) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
 								return {
 									containsCharacter: false,
-									containsMonster: false
+									containsMonster: false,
+									isWall: false
 								}
 							} else if (cIndex === charX && rIndex === charY+1) {
 								return {
 									containsCharacter: true,
-									containsMonster: false
+									containsMonster: false,
+									isWall: false
 								}
 							}
 							return col;

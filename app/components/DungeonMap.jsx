@@ -42,6 +42,8 @@ export class DungeonMap extends React.Component {
 		let getTileClasses = (x, y) => {
 			if (dungeonMap[x][y].containsCharacter) {
 				return "character-position";
+			} else if (dungeonMap[x][y].isWall) {
+				return "wall";
 			}
 		}
 

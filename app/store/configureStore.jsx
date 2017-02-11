@@ -18,15 +18,32 @@ export var configure = () => {
 		for (let j = 0; j < MAP_DIMENSIONS_COLUMNS; j++) {
 			defaultMap[i].push({
 				containsCharacter: false,
-				containsMonster: false	
+				containsMonster: false,
+				isWall: false
 			});
 		}
 	}
 
+	//y,x
 	defaultMap[5][7] = {
 		containsCharacter: true,
-		containsMonster: false
+		containsMonster: false,
+		isWall: false
 	}
+
+	for (let i = 3; i < 10; i++) {
+		defaultMap[i][10] = {
+			...defaultMap[i][10],
+			isWall: true	
+		}
+	}	
+	for (let i = 3; i < 10; i++) {
+		defaultMap[10][i] = {
+			...defaultMap[10][i],
+			isWall: true	
+		}
+	}
+
 	
 	//Faro, Jin
 	let defaultCharacter = {
