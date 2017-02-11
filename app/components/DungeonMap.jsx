@@ -37,16 +37,12 @@ export class DungeonMap extends React.Component {
 		
 		let {dispatch, dungeon, character} = this.props;
 		let dungeonMap = dungeon.map;
-		console.log("Character: " + character);
 		
 		/* Will use to put items, walls, monsters, etc. For now just character. */
 		let getTileClasses = (x, y) => {
-			if (character.x === x && character.y === y) {					
+			if (dungeonMap[x][y].containsCharacter) {
 				return "character-position";
 			}
-			
-
-			
 		}
 
 		let generateMap = () => {				
@@ -57,7 +53,7 @@ export class DungeonMap extends React.Component {
 						<Tile x={cIndex} 
 									y={rIndex} 
 									key={cIndex+''+rIndex}
-									tileClasses={getTileClasses(cIndex,rIndex)}
+									tileClasses={getTileClasses(rIndex,cIndex)}
 						/>
 					);
 				});

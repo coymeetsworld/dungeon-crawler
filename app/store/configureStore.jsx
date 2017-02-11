@@ -1,8 +1,8 @@
 import { combineReducers, createStore, compose } from 'redux';
 import { dungeonMapReducer, characterReducer} from 'reducers';
 
-const MAP_DIMENSIONS_X = 30;
-const MAP_DIMENSIONS_Y = 50;
+const MAP_DIMENSIONS_COLUMNS = 50;
+const MAP_DIMENSIONS_ROWS = 30;
 
 export var configure = () => {
 	
@@ -11,15 +11,21 @@ export var configure = () => {
 		character: characterReducer
 	});
 	
-	let defaultMap = [MAP_DIMENSIONS_X];
+	let defaultMap = [MAP_DIMENSIONS_COLUMNS];
 	
-	for (let i = 0; i < MAP_DIMENSIONS_X; i++) {
-		defaultMap[i] = [MAP_DIMENSIONS_Y];
-		for (let j = 0; j < MAP_DIMENSIONS_Y; j++) {
+	for (let i = 0; i < MAP_DIMENSIONS_ROWS; i++) {
+		defaultMap[i] = [];
+		for (let j = 0; j < MAP_DIMENSIONS_COLUMNS; j++) {
 			defaultMap[i].push({
+				containsCharacter: false,
 				containsMonster: false	
 			});
 		}
+	}
+
+	defaultMap[15][10] = {
+		containsCharacter: true,
+		containsMonster: false
 	}
 	
 	//Faro, Jin
@@ -29,9 +35,7 @@ export var configure = () => {
 		level: 1,
 		maxhp: 25,
 		hp: 25,
-		xp: 0,
-		x: 5,
-		y: 8
+		xp: 0
 	}
 	//xp to level should be constant and function defined elsewhere
 	/*weapons an object with strength parameter?
@@ -45,7 +49,7 @@ export var configure = () => {
 	
 	//console.log(defaultMap);
 	
-	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_X, height: MAP_DIMENSIONS_Y }, character: defaultCharacter};
+	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_COLUMNS, height: MAP_DIMENSIONS_ROWS }, character: defaultCharacter};
 	
 	const store = createStore(reducer, initialState, compose(
 		window.devToolsExtension ? window.devToolsExtension() : f => f
