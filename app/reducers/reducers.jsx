@@ -12,6 +12,9 @@ export const characterReducer = (state = {}, action) => {
 		case 'SET_LOCATION': 
 			console.log("Set loc called");
 			return state;
+case 'CHARACTER_MOVE': 
+	console.log("Character moving in " + action.direction + " direction");
+	return state;
 		default:
 			return state;
 	}

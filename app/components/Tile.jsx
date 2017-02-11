@@ -6,7 +6,7 @@ class Tile extends React.Component {
 	render() {
 		let {dispatch, x, y, tileClasses} = this.props;	
 		
-		console.log(tileClasses);
+		//console.log(tileClasses);
 		return (
 			<td key={'col' + y} className={tileClasses}></td>
 		)

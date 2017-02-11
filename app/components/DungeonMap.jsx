@@ -1,9 +1,37 @@
 import React from 'react';
 import Tile from 'Tile';
-import {setLocation} from 'actions';
+import {setLocation, characterMove} from 'actions';
 import {connect} from 'react-redux';
 
 export class DungeonMap extends React.Component {
+
+	onkeydown = (e) => {
+		let {dispatch, character} = this.props;
+		switch(e.key) {
+			case "ArrowLeft": 
+				dispatch(characterMove('LEFT'));
+				break;
+			case "ArrowRight": 
+				dispatch(characterMove('RIGHT'));
+				break;
+			case "ArrowUp": 
+				dispatch(characterMove('UP'));
+				break;
+			case "ArrowDown": 
+				dispatch(characterMove('DOWN'));
+				break;
+		}
+	}
+
+	componentDidMount() {
+		console.log("Map mounts");
+		window.addEventListener("keydown", this.onkeydown);
+	}
+
+	componentWillUnmount() {
+		console.log("Map unmounts");
+		window.removeEventListener("keydown", this.onkeydown);
+	}
 
 	render() {
 		
