@@ -1,8 +1,8 @@
 import { combineReducers, createStore, compose } from 'redux';
 import { dungeonMapReducer, characterReducer} from 'reducers';
 
-const MAP_DIMENSIONS_COLUMNS = 50;
-const MAP_DIMENSIONS_ROWS = 30;
+const MAP_DIMENSIONS_COLUMNS = 20;
+const MAP_DIMENSIONS_ROWS = 15;
 
 export var configure = () => {
 	
@@ -23,7 +23,7 @@ export var configure = () => {
 		}
 	}
 
-	defaultMap[15][10] = {
+	defaultMap[5][7] = {
 		containsCharacter: true,
 		containsMonster: false
 	}

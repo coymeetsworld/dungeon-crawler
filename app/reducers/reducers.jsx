@@ -2,6 +2,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 	let characterMove = (state, direction) => {
 		let dungeonMap = state.map;
+		let mapWidth = state.width;
+		let mapHeight = state.height;
 		let charX, charY;
 
 		for (let i = 0; i < dungeonMap.length; i++) {
@@ -20,9 +22,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 		switch(direction) {
 			case 'LEFT':
-				//console.log("Goin Left");
+			
 				if (charX-1 >= 0) {
-					//console.log(`${charX}-1 >= 0`);
 					newDungeonMap = dungeonMap.map((row, rIndex) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
@@ -44,22 +45,81 @@ export const dungeonMapReducer = (state = {}, action) => {
 						map: newDungeonMap,
 					}
 				}
+				break;
 
 			case 'RIGHT':
-				if (charX+1 < dungeonMap.width) {
-
+				if (charX+1 < mapWidth) {
+					newDungeonMap = dungeonMap.map((row, rIndex) => {
+						return row.map((col, cIndex) => {
+							if (cIndex === charX && rIndex === charY) {
+								return {
+									containsCharacter: false,
+									containsMonster: false
+								}
+							} else if (cIndex === charX+1 && rIndex === charY) {
+								return {
+									containsCharacter: true,
+									containsMonster: false
+								}
+							}
+							return col;
+						});	
+					});
+					return {
+						...state,
+						map: newDungeonMap,
+					}
 				}
+				break;
 
 			case 'UP':
-				if (charY-1 > 0) {
-
+				if (charY-1 >= 0) {
+					newDungeonMap = dungeonMap.map((row, rIndex) => {
+						return row.map((col, cIndex) => {
+							if (cIndex === charX && rIndex === charY) {
+								return {
+									containsCharacter: false,
+									containsMonster: false
+								}
+							} else if (cIndex === charX && rIndex === charY-1) {
+								return {
+									containsCharacter: true,
+									containsMonster: false
+								}
+							}
+							return col;
+						});	
+					});
+					return {
+						...state,
+						map: newDungeonMap,
+					}
 				}
+				break;
 
 			case 'DOWN':
-				if (charY+1 < dungeonMap.height) {
-					
+				if (charY+1 < mapHeight) {
+					newDungeonMap = dungeonMap.map((row, rIndex) => {
+						return row.map((col, cIndex) => {
+							if (cIndex === charX && rIndex === charY) {
+								return {
+									containsCharacter: false,
+									containsMonster: false
+								}
+							} else if (cIndex === charX && rIndex === charY+1) {
+								return {
+									containsCharacter: true,
+									containsMonster: false
+								}
+							}
+							return col;
+						});	
+					});
+					return {
+						...state,
+						map: newDungeonMap,
+					}
 				}
-
 		}
 
 		return state;
