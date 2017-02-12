@@ -75,6 +75,8 @@ export class DungeonMap extends React.Component {
 				return "wall";
 			} else if (dungeonMap[x][y].containsWeapon) {
 				return "weapon";
+			} else if (dungeonMap[x][y].containsMonster) {
+				return "monster";
 			}
 		}
 

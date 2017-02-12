@@ -20,38 +20,53 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 		let newDungeonMap = undefined;
 
+		let rescanMap = (prev, next) => {
+			
+			/* 
+				For left
+				prev {
+					x: charX,
+					y: charY
+				}
+				
+				next {
+					x: charX-1
+					y: charY
+				}	
+			
+			*/
+			return dungeonMap.map((row, rIndex) => {					
+				return row.map((col, cIndex) => {						
+					if (cIndex === prev.x && rIndex === prev.y) {
+						return {
+							...dungeonMap[rIndex][cIndex],
+							containsCharacter: false,
+						}
+					} else if (cIndex === next.x && rIndex === next.y) {
+						let cell = {
+							...dungeonMap[rIndex][cIndex],
+							containsCharacter: true,
+						}
+
+						if (dungeonMap[next.y][next.x].containsWeapon) {										
+							cell = {
+								...cell,
+								containsWeapon: false,
+								weapon: null
+							}
+						}
+						return cell;
+					}
+					return col;
+				});
+			});
+		}
+
 		switch(direction) {
 			case 'LEFT':
 
 				if (charX-1 >= 0 && !dungeonMap[charY][charX-1].isWall) {
-					newDungeonMap = dungeonMap.map((row, rIndex) => {
-						return row.map((col, cIndex) => {
-							if (cIndex === charX && rIndex === charY) {
-									
-								return {
-									...dungeonMap[rIndex][cIndex],
-									containsCharacter: false,
-								}
-
-							} else if (cIndex === charX-1 && rIndex === charY) {
-
-								let cell = {
-									...dungeonMap[rIndex][cIndex],
-									containsCharacter: true,
-								}
-
-								if (dungeonMap[charY][charX-1].containsWeapon) {										
-									cell = {
-										...cell,
-										containsWeapon: false,
-										weapon: null
-									}
-								}
-								return cell;
-							}
-							return col;
-						});	
-					});
+					newDungeonMap =rescanMap({x: charX, y: charY}, {x: charX-1, y: charY});
 					return {
 						...state,
 						map: newDungeonMap,
@@ -61,31 +76,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'RIGHT':
 				if (charX+1 < mapWidth && !dungeonMap[charY][charX+1].isWall) {
-					newDungeonMap = dungeonMap.map((row, rIndex) => {
-						return row.map((col, cIndex) => {
-							if (cIndex === charX && rIndex === charY) {
-								return {
-									...dungeonMap[rIndex][cIndex],
-									containsCharacter: false,
-								}
-							} else if (cIndex === charX+1 && rIndex === charY) {
-								let cell = {
-									...dungeonMap[rIndex][cIndex],
-									containsCharacter: true,
-								}
-
-								if (dungeonMap[charY][charX+1].containsWeapon) {										
-									cell = {
-										...cell,
-										containsWeapon: false,
-										weapon: null
-									}
-								}
-								return cell;
-							}
-							return col;
-						});	
-					});
+					newDungeonMap =rescanMap({x: charX, y: charY}, {x: charX+1, y: charY});
 					return {
 						...state,
 						map: newDungeonMap,
@@ -95,31 +86,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'UP':
 				if (charY-1 >= 0 && !dungeonMap[charY-1][charX].isWall) {
-					newDungeonMap = dungeonMap.map((row, rIndex) => {
-						return row.map((col, cIndex) => {
-							if (cIndex === charX && rIndex === charY) {
-								return {
-									...dungeonMap[rIndex][cIndex],
-									containsCharacter: false,
-								}
-							} else if (cIndex === charX && rIndex === charY-1) {
-								let cell = {
-									...dungeonMap[rIndex][cIndex],
-									containsCharacter: true,
-								}
-
-								if (dungeonMap[charY-1][charX].containsWeapon) {										
-									cell = {
-										...cell,
-										containsWeapon: false,
-										weapon: null
-									}
-								}
-								return cell;
-							}
-							return col;
-						});	
-					});
+					newDungeonMap =rescanMap({x: charX, y: charY}, {x: charX, y: charY-1});
 					return {
 						...state,
 						map: newDungeonMap,
@@ -129,31 +96,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'DOWN':
 				if (charY+1 < mapHeight && !dungeonMap[charY+1][charX].isWall) {
-					newDungeonMap = dungeonMap.map((row, rIndex) => {
-						return row.map((col, cIndex) => {
-							if (cIndex === charX && rIndex === charY) {
-								return {
-									...dungeonMap[rIndex][cIndex],
-									containsCharacter: false,
-								}
-							} else if (cIndex === charX && rIndex === charY+1) {
-								let cell = {
-									...dungeonMap[rIndex][cIndex],
-									containsCharacter: true,
-								}
-
-								if (dungeonMap[charY+1][charX].containsWeapon) {										
-									cell = {
-										...cell,
-										containsWeapon: false,
-										weapon: null
-									}
-								}
-								return cell;
-							}
-							return col;
-						});	
-					});
+					newDungeonMap =rescanMap({x: charX, y: charY}, {x: charX, y: charY+1});
 					return {
 						...state,
 						map: newDungeonMap,

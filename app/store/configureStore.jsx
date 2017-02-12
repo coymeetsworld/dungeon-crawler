@@ -63,6 +63,18 @@ export var configure = () => {
 		}
 	}
 
+	//Create a monster
+	defaultMap[10][12] = {
+		...defaultMap[10][12],
+		containsMonster: true,
+		monster: {
+			hp: 25,
+			strength: 5,
+			level: 1,
+			xp: 10 /* derive xp later based on stats of monster, for now simplify it by giving it as an attribute. */
+		}
+	}
+
 	
 	//Faro, Jin
 	let defaultCharacter = {
