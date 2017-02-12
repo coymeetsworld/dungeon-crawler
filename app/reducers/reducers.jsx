@@ -20,21 +20,20 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 		let newDungeonMap = undefined;
 
+		// If character is going on a tile with a weapon, remove it from the map (it will get added to character in another reducer.)
+		let checkForWeapon = (cell, x, y) => {
+			if (dungeonMap[y][x].containsWeapon) {					
+				cell = {
+					...cell,
+					containsWeapon: false,
+					weapon: null
+				}
+			}	
+			return cell;
+		}
+
 		let rescanMap = (prev, next) => {
 			
-			/* 
-				For left
-				prev {
-					x: charX,
-					y: charY
-				}
-				
-				next {
-					x: charX-1
-					y: charY
-				}	
-			
-			*/
 			return dungeonMap.map((row, rIndex) => {					
 				return row.map((col, cIndex) => {						
 					if (cIndex === prev.x && rIndex === prev.y) {
@@ -47,14 +46,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 							...dungeonMap[rIndex][cIndex],
 							containsCharacter: true,
 						}
-
-						if (dungeonMap[next.y][next.x].containsWeapon) {										
-							cell = {
-								...cell,
-								containsWeapon: false,
-								weapon: null
-							}
-						}
+						cell = checkForWeapon(cell, cIndex, rIndex);
+						
 						return cell;
 					}
 					return col;
@@ -76,7 +69,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'RIGHT':
 				if (charX+1 < mapWidth && !dungeonMap[charY][charX+1].isWall) {
-					newDungeonMap =rescanMap({x: charX, y: charY}, {x: charX+1, y: charY});
+					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX+1, y: charY});
 					return {
 						...state,
 						map: newDungeonMap,
