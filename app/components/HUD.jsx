@@ -13,7 +13,7 @@ export class HUD extends React.Component {
 				<span className="character-attribute">Name: {character.name}</span>
 				<span className="character-attribute">Level: {character.level}</span>
 				<span className="character-attribute">HP: {character.hp}/{character.maxhp}</span>
-				<span className="character-attribute">Weapon: {character.weapon ? character.weapon : 'none'}</span>					
+				<span className="character-attribute">Weapon: {character.weapon ? character.weapon.name : 'none'}</span>					
 				<span className="character-attribute">XP: {character.xp}</span>
 				<span className="character-attribute">To next level: TBD</span>
 			</div>

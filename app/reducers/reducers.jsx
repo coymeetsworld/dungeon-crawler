@@ -22,23 +22,32 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 		switch(direction) {
 			case 'LEFT':
-				console.log("newX: " + charX-1 + " y: " + charY + " isWall: " + dungeonMap[charX-1][charY].isWall);
 
 				if (charX-1 >= 0 && !dungeonMap[charY][charX-1].isWall) {
 					newDungeonMap = dungeonMap.map((row, rIndex) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
+									
 								return {
+									...dungeonMap[rIndex][cIndex],
 									containsCharacter: false,
-									containsMonster: false,
-									isWall: false
 								}
+
 							} else if (cIndex === charX-1 && rIndex === charY) {
-								return {
+
+								let cell = {
+									...dungeonMap[rIndex][cIndex],
 									containsCharacter: true,
-									containsMonster: false,
-									isWall: false
 								}
+
+								if (dungeonMap[charY][charX-1].containsWeapon) {										
+									cell = {
+										...cell,
+										containsWeapon: false,
+										weapon: null
+									}
+								}
+								return cell;
 							}
 							return col;
 						});	
@@ -56,16 +65,23 @@ export const dungeonMapReducer = (state = {}, action) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
 								return {
+									...dungeonMap[rIndex][cIndex],
 									containsCharacter: false,
-									containsMonster: false,
-									isWall: false
 								}
 							} else if (cIndex === charX+1 && rIndex === charY) {
-								return {
+								let cell = {
+									...dungeonMap[rIndex][cIndex],
 									containsCharacter: true,
-									containsMonster: false,
-									isWall: false
 								}
+
+								if (dungeonMap[charY][charX+1].containsWeapon) {										
+									cell = {
+										...cell,
+										containsWeapon: false,
+										weapon: null
+									}
+								}
+								return cell;
 							}
 							return col;
 						});	
@@ -83,16 +99,23 @@ export const dungeonMapReducer = (state = {}, action) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
 								return {
+									...dungeonMap[rIndex][cIndex],
 									containsCharacter: false,
-									containsMonster: false,
-									isWall: false
 								}
 							} else if (cIndex === charX && rIndex === charY-1) {
-								return {
+								let cell = {
+									...dungeonMap[rIndex][cIndex],
 									containsCharacter: true,
-									containsMonster: false,
-									isWall: false
 								}
+
+								if (dungeonMap[charY-1][charX].containsWeapon) {										
+									cell = {
+										...cell,
+										containsWeapon: false,
+										weapon: null
+									}
+								}
+								return cell;
 							}
 							return col;
 						});	
@@ -110,16 +133,23 @@ export const dungeonMapReducer = (state = {}, action) => {
 						return row.map((col, cIndex) => {
 							if (cIndex === charX && rIndex === charY) {
 								return {
+									...dungeonMap[rIndex][cIndex],
 									containsCharacter: false,
-									containsMonster: false,
-									isWall: false
 								}
 							} else if (cIndex === charX && rIndex === charY+1) {
-								return {
+								let cell = {
+									...dungeonMap[rIndex][cIndex],
 									containsCharacter: true,
-									containsMonster: false,
-									isWall: false
 								}
+
+								if (dungeonMap[charY+1][charX].containsWeapon) {										
+									cell = {
+										...cell,
+										containsWeapon: false,
+										weapon: null
+									}
+								}
+								return cell;
 							}
 							return col;
 						});	
@@ -144,11 +174,12 @@ export const dungeonMapReducer = (state = {}, action) => {
 }
 
 export const characterReducer = (state = {}, action) => {
-
 	switch (action.type) {
-		case 'SET_LOCATION': 
-			console.log("Set loc called");
-			return state;
+		case 'COLLECT_WEAPON': 
+			return {
+				...state,
+				weapon: action.weapon
+			};
 		default:
 			return state;
 	}

@@ -19,18 +19,37 @@ export var configure = () => {
 			defaultMap[i].push({
 				containsCharacter: false,
 				containsMonster: false,
+				containsWeapon: false,
 				isWall: false
 			});
 		}
 	}
 
-	//y,x
+	//Place character
 	defaultMap[5][7] = {
-		containsCharacter: true,
-		containsMonster: false,
-		isWall: false
+		...defaultMap[5][7],
+		containsCharacter: true
 	}
 
+	//Place weapons
+	defaultMap[5][5] = {
+		...defaultMap[5][5],
+		containsWeapon: true,
+		weapon: {
+			name: 'Club',
+			attack: 10
+		}
+	}
+	defaultMap[12][18] = {
+		...defaultMap[12][18],
+		containsWeapon: true,
+		weapon: {
+			name: 'Dagger',
+			attack: 15
+		}
+	}
+
+	//Draw some walls
 	for (let i = 3; i < 10; i++) {
 		defaultMap[i][10] = {
 			...defaultMap[i][10],
