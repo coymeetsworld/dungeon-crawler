@@ -33,34 +33,6 @@ export class DungeonMap extends React.Component {
 		window.removeEventListener("keydown", this.onkeydown);
 	}
 
-	/* If map will recieve props, check new state and see some changes (i.e. weapon gone, monster defeated?) */
-	componentWillReceiveProps(nextProps) {
-		//console.log("Updated map");
-		//console.log(nextProps);
-		//console.log(this.props);
-
-		let charX, charY;
-		let nextDungeonMap = nextProps.dungeon.map;
-		for (let i = 0; i < nextDungeonMap.length; i++) {
-			for (let j = 0; j < nextDungeonMap[i].length; j++) {
-				if (nextDungeonMap[i][j].containsCharacter) {
-					charX = j;
-					charY = i;
-					i = nextDungeonMap.length; // to stop iterating once found character. Any real significant boost?
-					break;
-				}
-			}
-		}
-
-		let currDungeonMap = this.props.dungeon.map;
-		let {dispatch} = this.props;
-		
-		if (currDungeonMap[charY][charX].containsWeapon) {
-			let weapon = currDungeonMap[charY][charX].weapon;
-			dispatch(collectWeapon(weapon));
-		}
-
-	}
 
 	render() {
 		

@@ -29,6 +29,10 @@ export const dungeonMapReducer = (state = {}, action) => {
 					containsWeapon: false,
 					weapon: null
 				}
+				character = {
+					...character,
+					weapon: dungeonMap[y][x].weapon	
+				}
 			}	
 			return cell;
 		}
@@ -164,14 +168,6 @@ export const dungeonMapReducer = (state = {}, action) => {
 	switch (action.type) {
 		case 'CHARACTER_MOVE': 
 			return characterMove(state, action.direction);
-		case 'COLLECT_WEAPON':
-			return {
-				...state,
-				character: {
-					...state.character,
-					weapon: action.weapon
-				}
-			}
 		default:
 			return state;
 	}
