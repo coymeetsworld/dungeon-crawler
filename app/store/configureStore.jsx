@@ -19,6 +19,7 @@ export var configure = () => {
 				containsCharacter: false,
 				containsMonster: false,
 				containsWeapon: false,
+				containsPotion: false,
 				isWall: false
 			});
 		}
@@ -81,6 +82,13 @@ export var configure = () => {
 		}
 	}
 	
+	
+	//Add potions
+	defaultMap[3][9] = {
+		...defaultMap[3][9],
+		containsPotion: true,
+	}
+	
 	//Faro, Jin
 	let defaultCharacter = {
 		name: 'Trey',
@@ -106,8 +114,6 @@ export var configure = () => {
 		'2h sword': 55
 	}
 	*/
-	
-	console.log(defaultMap);
 	
 	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_COLUMNS, height: MAP_DIMENSIONS_ROWS, character: defaultCharacter} };
 	

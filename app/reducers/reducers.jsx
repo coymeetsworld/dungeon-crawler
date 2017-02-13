@@ -38,6 +38,21 @@ export const dungeonMapReducer = (state = {}, action) => {
 		}
 		
 		
+		// For early stages, well say potion heals 50 of your XP
+		let checkForPotion = (cell, x, y) => {
+			if (dungeonMap[y][x].containsPotion) {
+				cell = {
+					...cell,
+					containsPotion: false
+				}
+				character = {
+					...character,
+					hp: (character.hp + 5 > character.maxhp ? character.maxhp : character.hp + 5)
+				}
+			}
+			return cell;	
+		}
+		
 		let fightMonster = (cell) => {
 			
 			let charStrength = character.str;
@@ -107,6 +122,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 							containsCharacter: true,
 						}
 						cell = checkForWeapon(cell, cIndex, rIndex);
+						cell = checkForPotion(cell, cIndex, rIndex);
 						
 						return cell;
 					}

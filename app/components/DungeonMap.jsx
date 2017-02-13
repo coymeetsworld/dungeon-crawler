@@ -24,12 +24,12 @@ export class DungeonMap extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log("Map mounts");
+		//console.log("Map mounts");
 		window.addEventListener("keydown", this.onkeydown);
 	}
 
 	componentWillUnmount() {
-		console.log("Map unmounts");
+		//console.log("Map unmounts");
 		window.removeEventListener("keydown", this.onkeydown);
 	}
 
@@ -49,6 +49,8 @@ export class DungeonMap extends React.Component {
 				return "weapon";
 			} else if (dungeonMap[x][y].containsMonster) {
 				return "monster";
+			} else if (dungeonMap[x][y].containsPotion) {
+				return "potion";
 			}
 		}
 
