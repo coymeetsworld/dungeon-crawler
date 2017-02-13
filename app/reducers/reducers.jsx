@@ -31,17 +31,49 @@ export const dungeonMapReducer = (state = {}, action) => {
 			}	
 			return cell;
 		}
+		
+		
+		let fightMonster = (cell) => {
+			console.log(cell.monster);			
+
+			if (cell.monster.hp - 10 <= 0) {
+				return {
+					...cell,
+					containsMonster: false,
+					monster: null
+				}	
+			}			
+			return {
+				...cell,
+				monster: {
+					...cell.monster,
+					hp: cell.monster.hp-10
+				}
+			}
+		}
 
 		let rescanMap = (prev, next) => {
 			
 			return dungeonMap.map((row, rIndex) => {					
-				return row.map((col, cIndex) => {						
+				return row.map((col, cIndex) => {	
+						
+						
+					// Looking ahead, to see if there's a monster.
+					// This is called first because if a monster is encountered, faught and dies. The character will move to his spot.
+					if (cIndex === next.x && rIndex === next.y) {
+						if (dungeonMap[next.y][next.x].containsMonster) { 	
+							return fightMonster(dungeonMap[next.y][next.x]);
+						}
+					}					
+
 					if (cIndex === prev.x && rIndex === prev.y) {
+						if (dungeonMap[next.y][next.x].containsMonster) { return col; } 
 						return {
 							...dungeonMap[rIndex][cIndex],
 							containsCharacter: false,
 						}
 					} else if (cIndex === next.x && rIndex === next.y) {
+						if (dungeonMap[next.y][next.x].containsMonster) { return col; } 
 						let cell = {
 							...dungeonMap[rIndex][cIndex],
 							containsCharacter: true,

@@ -64,8 +64,8 @@ export var configure = () => {
 	}
 
 	//Create a monster
-	defaultMap[10][12] = {
-		...defaultMap[10][12],
+	defaultMap[0][5] = {
+		...defaultMap[0][5],
 		containsMonster: true,
 		monster: {
 			hp: 25,
