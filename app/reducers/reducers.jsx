@@ -115,7 +115,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 			case 'LEFT':
 
 				if (charX-1 >= 0 && !dungeonMap[charY][charX-1].isWall) {
-					newDungeonMap =rescanMap({x: charX, y: charY}, {x: charX-1, y: charY});
+					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX-1, y: charY});
 					return {
 						...state,
 						map: newDungeonMap,
@@ -137,7 +137,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'UP':
 				if (charY-1 >= 0 && !dungeonMap[charY-1][charX].isWall) {
-					newDungeonMap =rescanMap({x: charX, y: charY}, {x: charX, y: charY-1});
+					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX, y: charY-1});
 					return {
 						...state,
 						map: newDungeonMap,
@@ -148,7 +148,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'DOWN':
 				if (charY+1 < mapHeight && !dungeonMap[charY+1][charX].isWall) {
-					newDungeonMap =rescanMap({x: charX, y: charY}, {x: charX, y: charY+1});
+					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX, y: charY+1});
 					return {
 						...state,
 						map: newDungeonMap,
