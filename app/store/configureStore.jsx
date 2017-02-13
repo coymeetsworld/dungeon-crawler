@@ -1,8 +1,8 @@
 import { combineReducers, createStore, compose } from 'redux';
 import { dungeonMapReducer, characterReducer} from 'reducers';
 
-const MAP_DIMENSIONS_COLUMNS = 20;
-const MAP_DIMENSIONS_ROWS = 15;
+const MAP_DIMENSIONS_COLUMNS = 50;
+const MAP_DIMENSIONS_ROWS = 30;
 
 export var configure = () => {
 	
@@ -80,10 +80,10 @@ export var configure = () => {
 		}
 	}
 	
-	let placeCharacter = (character) => {
+	let placeCharacter = (character,x, y) => {
 		//Place character
-		defaultMap[0][0] = {
-			...defaultMap[0][0],
+		defaultMap[y][x] = {
+			...defaultMap[y][x],
 			containsCharacter: true,
 		}
 	
@@ -109,7 +109,6 @@ export var configure = () => {
 	placeMonsters();
 	placePotions();
 
-	
 	//Faro, Jin
 	let defaultCharacter = {
 		name: 'Trey',
@@ -121,7 +120,9 @@ export var configure = () => {
 		xp: 0
 	}
 	
-	placeCharacter(defaultCharacter);
+	let charX = 0;
+	let charY = 0;
+	placeCharacter(defaultCharacter, charX, charY);
 
 	//xp to level should be constant and function defined elsewhere
 	/*weapons an object with strength parameter?
@@ -133,7 +134,7 @@ export var configure = () => {
 	}
 	*/
 	
-	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_COLUMNS, height: MAP_DIMENSIONS_ROWS, character: defaultCharacter} };
+	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_COLUMNS, height: MAP_DIMENSIONS_ROWS, character: defaultCharacter, charLoc: {x: charX, y: charY}} };
 	
 	const store = createStore(reducer, initialState, compose(
 		window.devToolsExtension ? window.devToolsExtension() : f => f

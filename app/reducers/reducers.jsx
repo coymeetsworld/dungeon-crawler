@@ -4,22 +4,12 @@ export const dungeonMapReducer = (state = {}, action) => {
 		let dungeonMap = state.map;
 		let mapWidth = state.width;
 		let mapHeight = state.height;
-		let charX, charY;
+		let charX = state.charLoc.x;
+		let charY = state.charLoc.y;
 		let character = state.character;
 
-		for (let i = 0; i < dungeonMap.length; i++) {
-			for (let j = 0; j < dungeonMap[i].length; j++) {
-				if (dungeonMap[i][j].containsCharacter) {
-					//console.log("found character at " + i + " " + j);
-					charX = j;
-					charY = i;
-					i = dungeonMap.length; // to stop iterating once found character. Any real significant boost?
-					break;
-				}
-			}
-		}
-
 		let newDungeonMap = undefined;
+		let newCharLoc = state.charLoc; // Keep the same unless character actually moves.
 
 		// If character is going on a tile with a weapon, remove it from the map (it will get added to character in another reducer.)
 		let checkForWeapon = (cell, x, y) => {
@@ -58,9 +48,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 			let charStrength = character.str;
 			let monster = cell.monster;
 			if (character.weapon) { charStrength += character.weapon.attack; }					
-			
 			let monsterHP = monster.hp - charStrength;
-			
 			let charHP = character.hp - monster.strength;
 			
 			if (charHP <= 0) {
@@ -123,6 +111,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 						}
 						cell = checkForWeapon(cell, cIndex, rIndex);
 						cell = checkForPotion(cell, cIndex, rIndex);
+						newCharLoc = {x: cIndex, y: rIndex};	
 						
 						return cell;
 					}
@@ -139,7 +128,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 					return {
 						...state,
 						map: newDungeonMap,
-						character
+						character,
+						charLoc: newCharLoc
 					}
 				}
 				break;
@@ -150,7 +140,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 					return {
 						...state,
 						map: newDungeonMap,
-						character
+						character,
+						charLoc: newCharLoc
 					}
 				}
 				break;
@@ -161,7 +152,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 					return {
 						...state,
 						map: newDungeonMap,
-						character
+						character,
+						charLoc: newCharLoc
 					}
 				}
 				break;
@@ -172,7 +164,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 					return {
 						...state,
 						map: newDungeonMap,
-						character
+						character,
+						charLoc: newCharLoc
 					}
 				}
 		}
