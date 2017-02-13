@@ -5,6 +5,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 		let mapWidth = state.width;
 		let mapHeight = state.height;
 		let charX, charY;
+		let character = state.character;
 
 		for (let i = 0; i < dungeonMap.length; i++) {
 			for (let j = 0; j < dungeonMap[i].length; j++) {
@@ -34,20 +35,44 @@ export const dungeonMapReducer = (state = {}, action) => {
 		
 		
 		let fightMonster = (cell) => {
-			console.log(cell.monster);			
-
-			if (cell.monster.hp - 10 <= 0) {
+			
+			let charStrength = character.str;
+			let monster = cell.monster;
+			if (character.weapon) { charStrength += character.weapon.attack; }					
+			
+			let monsterHP = monster.hp - charStrength;
+			
+			let charHP = character.hp - monster.strength;
+			
+			if (charHP <= 0) {
+				console.log("GAME OVER! Character is dead!");
+				//make exit status later
+			}
+			character = {					
+				...character,
+				hp: charHP	
+			}
+			
+			if (monsterHP <= 0) {
+				
+				// need to decide leveling up later
+				character = {
+					...character,
+					xp: character.xp + monster.xp
+				}
+				
 				return {
 					...cell,
 					containsMonster: false,
 					monster: null
 				}	
 			}			
+			
 			return {
 				...cell,
 				monster: {
-					...cell.monster,
-					hp: cell.monster.hp-10
+					...monster,
+					hp: monsterHP
 				}
 			}
 		}
@@ -57,14 +82,13 @@ export const dungeonMapReducer = (state = {}, action) => {
 			return dungeonMap.map((row, rIndex) => {					
 				return row.map((col, cIndex) => {	
 						
-						
 					// Looking ahead, to see if there's a monster.
 					// This is called first because if a monster is encountered, faught and dies. The character will move to his spot.
 					if (cIndex === next.x && rIndex === next.y) {
 						if (dungeonMap[next.y][next.x].containsMonster) { 	
 							return fightMonster(dungeonMap[next.y][next.x]);
 						}
-					}					
+					}	
 
 					if (cIndex === prev.x && rIndex === prev.y) {
 						if (dungeonMap[next.y][next.x].containsMonster) { return col; } 
@@ -95,6 +119,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 					return {
 						...state,
 						map: newDungeonMap,
+						character
 					}
 				}
 				break;
@@ -105,6 +130,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 					return {
 						...state,
 						map: newDungeonMap,
+						character
 					}
 				}
 				break;
@@ -115,6 +141,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 					return {
 						...state,
 						map: newDungeonMap,
+						character
 					}
 				}
 				break;
@@ -125,6 +152,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 					return {
 						...state,
 						map: newDungeonMap,
+						character
 					}
 				}
 		}
@@ -136,18 +164,14 @@ export const dungeonMapReducer = (state = {}, action) => {
 	switch (action.type) {
 		case 'CHARACTER_MOVE': 
 			return characterMove(state, action.direction);
-		default:
-			return state;
-	}
-}
-
-export const characterReducer = (state = {}, action) => {
-	switch (action.type) {
-		case 'COLLECT_WEAPON': 
+		case 'COLLECT_WEAPON':
 			return {
 				...state,
-				weapon: action.weapon
-			};
+				character: {
+					...state.character,
+					weapon: action.weapon
+				}
+			}
 		default:
 			return state;
 	}

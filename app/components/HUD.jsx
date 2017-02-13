@@ -6,8 +6,9 @@ export class HUD extends React.Component {
 
 	render() {
 
-		let {character} = this.props;	
 		
+		let character = this.props.dungeon.character;
+
 		return(
 			<div className="character-attributes">
 				<span className="character-attribute">Name: {character.name}</span>

@@ -7,8 +7,7 @@ const MAP_DIMENSIONS_ROWS = 15;
 export var configure = () => {
 	
 	const reducer = combineReducers({
-		dungeon: dungeonMapReducer,
-		character: characterReducer
+		dungeon: dungeonMapReducer
 	});
 	
 	let defaultMap = [MAP_DIMENSIONS_COLUMNS];
@@ -25,11 +24,6 @@ export var configure = () => {
 		}
 	}
 
-	//Place character
-	defaultMap[5][7] = {
-		...defaultMap[5][7],
-		containsCharacter: true
-	}
 
 	//Place weapons
 	defaultMap[5][5] = {
@@ -75,15 +69,33 @@ export var configure = () => {
 		}
 	}
 
+	//Create a monster
+	defaultMap[5][12] = {
+		...defaultMap[0][5],
+		containsMonster: true,
+		monster: {
+			hp: 25,
+			strength: 5,
+			level: 1,
+			xp: 10 /* derive xp later based on stats of monster, for now simplify it by giving it as an attribute. */
+		}
+	}
 	
 	//Faro, Jin
 	let defaultCharacter = {
 		name: 'Trey',
 		weapon: undefined,
 		level: 1,
-		maxhp: 25,
-		hp: 25,
+		maxhp: 125,
+		str: 15,
+		hp: 125,
 		xp: 0
+	}
+
+	//Place character
+	defaultMap[0][0] = {
+		...defaultMap[0][0],
+		containsCharacter: true,
 	}
 	//xp to level should be constant and function defined elsewhere
 	/*weapons an object with strength parameter?
@@ -95,9 +107,9 @@ export var configure = () => {
 	}
 	*/
 	
-	//console.log(defaultMap);
+	console.log(defaultMap);
 	
-	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_COLUMNS, height: MAP_DIMENSIONS_ROWS }, character: defaultCharacter};
+	let initialState = { dungeon: {map: defaultMap, width: MAP_DIMENSIONS_COLUMNS, height: MAP_DIMENSIONS_ROWS, character: defaultCharacter} };
 	
 	const store = createStore(reducer, initialState, compose(
 		window.devToolsExtension ? window.devToolsExtension() : f => f
