@@ -1,10 +1,29 @@
 import { combineReducers, createStore, compose } from 'redux';
 import { dungeonMapReducer, characterReducer} from 'reducers';
+import {BSPTree} from 'BSPTree';
 
 const MAP_DIMENSIONS_COLUMNS = 50;
 const MAP_DIMENSIONS_ROWS = 30;
 
+
 export var configure = () => {
+	
+	let tree = new BSPTree('x');
+	console.log(tree.getTree());
+	let ltree = new BSPTree('a');
+	let rtree = new BSPTree('b');
+	tree.leftChild = ltree;
+	tree.rightChild = rtree;
+	console.log(tree.getTree());
+	
+	let ltree2 = new BSPTree('c');
+	ltree.leftChild = ltree2;
+	let rtree2 = new BSPTree('d');
+	ltree.rightChild = rtree2;
+	tree.leftChild = ltree;
+	console.log(tree.getTree());
+	
+	
 	
 	const reducer = combineReducers({
 		dungeon: dungeonMapReducer
@@ -123,6 +142,10 @@ export var configure = () => {
 	let charX = 0;
 	let charY = 0;
 	placeCharacter(defaultCharacter, charX, charY);
+
+
+	
+
 
 	//xp to level should be constant and function defined elsewhere
 	/*weapons an object with strength parameter?
