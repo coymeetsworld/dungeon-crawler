@@ -1,6 +1,6 @@
 import { combineReducers, createStore, compose } from 'redux';
 import { dungeonMapReducer, characterReducer} from 'reducers';
-import {BSPTree} from 'BSPTree';
+import {Container} from 'Container';
 
 const MAP_DIMENSIONS_COLUMNS = 50;
 const MAP_DIMENSIONS_ROWS = 30;
@@ -8,21 +8,8 @@ const MAP_DIMENSIONS_ROWS = 30;
 
 export var configure = () => {
 	
-	let tree = new BSPTree('x');
-	console.log(tree.getTree());
-	let ltree = new BSPTree('a');
-	let rtree = new BSPTree('b');
-	tree.leftChild = ltree;
-	tree.rightChild = rtree;
-	console.log(tree.getTree());
-	
-	let ltree2 = new BSPTree('c');
-	ltree.leftChild = ltree2;
-	let rtree2 = new BSPTree('d');
-	ltree.rightChild = rtree2;
-	tree.leftChild = ltree;
-	console.log(tree.getTree());
-	
+	let container = new Container(0,0,5,10);	
+	console.log(container.toString());
 	
 	
 	const reducer = combineReducers({

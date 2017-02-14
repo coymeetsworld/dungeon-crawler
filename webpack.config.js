@@ -29,7 +29,8 @@ module.exports = {
 			actions: 'app/actions/actions.jsx',
 			reducers: 'app/reducers/reducers.jsx',
 			configureStore: 'app/store/configureStore.jsx',
-			BSPTree: 'app/store/BSPTree.jsx'
+			BSPTree: 'app/store/BSPTree.jsx',
+			Container: 'app/store/Container.jsx'
 		},
 		extensions: ['', '.js', '.jsx']
 	},
