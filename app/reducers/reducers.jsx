@@ -31,13 +31,17 @@ export const dungeonMapReducer = (state = {}, action) => {
 		// For early stages, well say potion heals 50 of your XP
 		let checkForPotion = (cell, x, y) => {
 			if (dungeonMap[y][x].containsPotion) {
+				let potion = dungeonMap[y][x].potion;	
+				console.log("Potion: ");
+				console.log(potion.restoreAmount);
 				cell = {
 					...cell,
-					containsPotion: false
+					containsPotion: false,
+					potion: null
 				}
 				character = {
 					...character,
-					hp: (character.hp + 5 > character.maxhp ? character.maxhp : character.hp + 5)
+					hp: (character.hp + potion.restoreAmount > character.maxhp ? character.maxhp : character.hp + potion.restoreAmount)
 				}
 			}
 			return cell;	
@@ -52,6 +56,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 			let charHP = character.hp - monster.strength;
 			
 			if (charHP <= 0) {
+				charHP = 0;
 				console.log("GAME OVER! Character is dead!");
 				//make exit status later
 			}

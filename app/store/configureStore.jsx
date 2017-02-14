@@ -35,37 +35,19 @@ export var configure = () => {
 		}	
 	}
 	
-	let placePotions = () => {
-		//Add potions
-		defaultMap[3][9] = {
-			...defaultMap[3][9],
+	let placePotion = (potion, x, y) => {
+		defaultMap[y][x] = {
+			...defaultMap[y][x],
 			containsPotion: true,
+			potion: potion
 		}
 	}
 	
-	let placeMonsters = () => {
-		//Create a monster
-		defaultMap[0][5] = {
-			...defaultMap[0][5],
+	let placeMonster = (monster, x, y) => {
+		defaultMap[y][x] = {
+			...defaultMap[y][x],
 			containsMonster: true,
-			monster: {
-				hp: 25,
-				strength: 5,
-				level: 1,
-				xp: 10 /* derive xp later based on stats of monster, for now simplify it by giving it as an attribute. */
-			}
-		}
-
-		//Create a monster
-		defaultMap[5][12] = {
-			...defaultMap[0][5],
-			containsMonster: true,
-			monster: {
-				hp: 25,
-				strength: 5,
-				level: 1,
-				xp: 10 /* derive xp later based on stats of monster, for now simplify it by giving it as an attribute. */
-			}
+			monster: monster
 		}
 	}
 	
@@ -184,16 +166,25 @@ export var configure = () => {
 		}
 		else {
 			//Between the beginning and end rooms, need a mix of monsters and potions
+			//Well make it 50/50 for now to make it easy
+			if (Math.round(Math.random())) {
+				let monster = {
+					hp: 25,
+					strength: 35,
+					level: 1,
+					xp: 10 /* derive xp later based on stats of monster, for now simplify it by giving it as an attribute. */
+				}
+				placeMonster(monster, Math.floor(room.center.x), Math.floor(room.center.y));
+			} else {
+				let potion = {
+					name: 'Potion',
+					restoreAmount: 20
+				}
+				placePotion(potion, Math.floor(room.center.x), Math.floor(room.center.y));
+			}
 		}
 		
 	});	
-
-
-
-	//placeWeapons();
-	//placeMonsters();
-	//placePotions();
-	
 
 
 	//xp to level should be constant and function defined elsewhere
