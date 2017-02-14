@@ -3,8 +3,8 @@ import { dungeonMapReducer, characterReducer} from 'reducers';
 import {splitContainer, Container} from 'Container';
 import {Room} from 'Room';
 
-const MAP_DIMENSIONS_COLUMNS = 65;
-const MAP_DIMENSIONS_ROWS = 35;
+const MAP_DIMENSIONS_COLUMNS = 50;
+const MAP_DIMENSIONS_ROWS = 25;
 const ITERATIONS = 3; // Number used to determine how many containers will get created.
 
 
@@ -81,13 +81,18 @@ export var configure = () => {
 		}
 	}
 	
-	let placeCharacter = (character,x, y) => {
-		//Place character
+	let placeCharacter = (character, x, y) => {
 		defaultMap[y][x] = {
 			...defaultMap[y][x],
 			containsCharacter: true,
 		}
+	}
 	
+	let placeEnd = (x, y) => {
+		defaultMap[y][x] = {
+			...defaultMap[y][x],
+			isExit: true
+		}
 	}
 	
 	let defaultMap = [MAP_DIMENSIONS_COLUMNS];
@@ -100,6 +105,7 @@ export var configure = () => {
 				containsMonster: false,
 				containsWeapon: false,
 				containsPotion: false,
+				isExit: false,
 				isWall: true
 			});
 		}
@@ -144,25 +150,14 @@ export var configure = () => {
 																//x,y,width,height
 	let container = new Container(0,0,MAP_DIMENSIONS_COLUMNS,MAP_DIMENSIONS_ROWS);	
 	let containerTree = splitContainer(container, ITERATIONS); //returns a BSPTree
-	//console.log(containerTree.toString()); // print out BSPTree
+	renderPaths(containerTree);
+	
 	let leaves = containerTree.getLeaves();
-	//console.log(leaves);
-	//console.log("---------");
 	let rooms = leaves.map((leaf) => {
-		//console.log(leaf.toString());
 		return new Room(leaf);		
 	});
 	rooms.map((room)=> renderRoom(room));
 
-	renderPaths(containerTree);
-
-	
-	
-	
-	
-	//placeWeapons();
-	//placeMonsters();
-	//placePotions();
 
 	//Faro, Jin
 	let defaultCharacter = {
@@ -175,11 +170,25 @@ export var configure = () => {
 		xp: 0
 	}
 	
-	let charX = 0;
-	let charY = 0;
-	//placeCharacter(defaultCharacter, charX, charY);
+	//Let's put character in root of tree.	
+
+	let charLeaf = containerTree.getCharLeaf();
+	console.log(charLeaf);	
+	
+	let charX = Math.floor(charLeaf.center.x);
+	let charY = Math.floor(charLeaf.center.y);
+	placeCharacter(defaultCharacter, charX, charY);
 
 
+	let endLeaf = containerTree.getEndLeaf();
+	console.log(endLeaf);	
+	let endX = Math.floor(endLeaf.center.x);
+	let endY = Math.floor(endLeaf.center.y);
+	placeEnd(endX, endY);
+
+	//placeWeapons();
+	//placeMonsters();
+	//placePotions();
 	
 
 

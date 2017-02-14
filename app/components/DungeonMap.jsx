@@ -51,6 +51,8 @@ export class DungeonMap extends React.Component {
 				return "monster";
 			} else if (dungeonMap[x][y].containsPotion) {
 				return "potion";
+			} else if (dungeonMap[x][y].isExit) {
+				return "exit";
 			}
 		}
 

@@ -34,5 +34,17 @@ export class BSPTree {
 								
 		return str + "\n";
 	}
+	
+	//Gets the leftmost leaf w/ no children. Used to put character in.
+	getCharLeaf() {
+		if (this.leftChild === undefined && this.rightChild === undefined) { return this.leaf; }
+		return this.leftChild.getCharLeaf();
+	}
 
+	//Gets the rightmost leaf w/ no children. Used to put exit/boss in.
+	getEndLeaf() {
+		if (this.leftChild === undefined && this.rightChild === undefined) { return this.leaf; }
+		return this.rightChild.getEndLeaf();
+
+	}
 }
