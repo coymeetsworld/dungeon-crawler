@@ -3,23 +3,15 @@ import { dungeonMapReducer, characterReducer} from 'reducers';
 import {splitContainer, Container} from 'Container';
 import {Room} from 'Room';
 
+//const MAP_DIMENSIONS_COLUMNS = 75;
+//const MAP_DIMENSIONS_ROWS = 40;
+//const ITERATIONS = 3; // Number used to determine how many containers will get created.
 const MAP_DIMENSIONS_COLUMNS = 50;
 const MAP_DIMENSIONS_ROWS = 30;
+const ITERATIONS = 3; // Number used to determine how many containers will get created.
 
 
 export var configure = () => {
-	
-																//x,y,width,height
-	let container = new Container(0,0,MAP_DIMENSIONS_COLUMNS,MAP_DIMENSIONS_ROWS);	
-	console.log(container.toString());
-	let containerTree = splitContainer(container, 2); //returns a BSPTree
-	let leaves = containerTree.getLeaves();
-	let rooms = leaves.map((leaf) => {
-		return new Room(leaf);		
-	});
-	console.log("Rooms");
-	console.log(rooms);
-	
 	
 	
 	const reducer = combineReducers({
@@ -60,6 +52,29 @@ export var configure = () => {
 				isWall: true	
 			}
 		}
+	}
+	
+	let renderRoom = (room) => {
+		/*
+		room.height: 17
+		room.width: 15
+		room.x 1
+		room.y 8
+
+		room.height: 19
+		room.width: 16
+		room.x 28
+		room.y 4
+		*/
+		//Draw some walls
+		for (let y = room.y; y < room.y+room.height; y++) {
+			for (let x = room.x; x < room.x+room.width; x++) {
+				defaultMap[y][x] = {
+					...defaultMap[y][x],
+					isWall: false
+				}
+			}
+		}	
 	}
 	
 	let placePotions = () => {
@@ -115,15 +130,30 @@ export var configure = () => {
 				containsMonster: false,
 				containsWeapon: false,
 				containsPotion: false,
-				isWall: false
+				isWall: true
 			});
 		}
 	}
 
-	placeWeapons();
-	placeWalls();
-	placeMonsters();
-	placePotions();
+
+	//Create dungeon rooms
+																//x,y,width,height
+	let container = new Container(0,0,MAP_DIMENSIONS_COLUMNS,MAP_DIMENSIONS_ROWS);	
+	let containerTree = splitContainer(container, ITERATIONS); //returns a BSPTree
+	let leaves = containerTree.getLeaves();
+	let rooms = leaves.map((leaf) => {
+		return new Room(leaf);		
+	});
+	console.log("Rooms");
+	console.log(rooms);
+	
+	rooms.map((room)=> renderRoom(room));
+	
+	
+	//placeWeapons();
+	//placeWalls();
+	//placeMonsters();
+	//placePotions();
 
 	//Faro, Jin
 	let defaultCharacter = {
@@ -138,7 +168,7 @@ export var configure = () => {
 	
 	let charX = 0;
 	let charY = 0;
-	placeCharacter(defaultCharacter, charX, charY);
+	//placeCharacter(defaultCharacter, charX, charY);
 
 
 	

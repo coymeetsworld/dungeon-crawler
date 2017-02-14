@@ -25,6 +25,6 @@ export class BSPTree {
 		if (this.leftChild === undefined && this.rightChild === undefined) {
 			return [this.leaf];
 		}
-		return [].concat(this.leftChild.getTree(), this.rightChild.getTree());
+		return [].concat(this.leftChild.getLeaves(), this.rightChild.getLeaves());
 	}
 }

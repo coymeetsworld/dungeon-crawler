@@ -8,9 +8,8 @@ const PADDING_MAX_MULTIPLIER = 3;
 // Note: allowing padding to be 0 means that rooms in different containers can touch. 
 
 export class Room {
-	
+
 	constructor(container) {			
-		console.log(container);
 		this.x = container.x + random(PADDING_MIN_MULTIPLIER, Math.floor(container.width/PADDING_MAX_MULTIPLIER));
 		this.y = container.y + random(PADDING_MIN_MULTIPLIER, Math.floor(container.height/PADDING_MAX_MULTIPLIER));
 		this.width = container.width - (this.x - container.x);
@@ -18,8 +17,7 @@ export class Room {
 		this.width -= random(PADDING_MIN_MULTIPLIER, this.width/PADDING_MAX_MULTIPLIER);
 		// this was in example, typo?
 		//this.h -= random(PADDING_MIN_MULTIPLIER, this.width/PADDING_MAX_MULTIPLIER);
-		this.height -= random(PADDING_MIN_MULTIPLIER, this.height/PADDING_MAX_MULTIPLIER);
-		
+		this.height -= random(PADDING_MIN_MULTIPLIER, this.width/PADDING_MAX_MULTIPLIER);
 	}
 	
 }
