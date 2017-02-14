@@ -38,35 +38,8 @@ export var configure = () => {
 		}
 	}	
 	
-	let placeWalls = () => {
-		//Draw some walls
-		for (let i = 3; i < 10; i++) {
-			defaultMap[i][10] = {
-				...defaultMap[i][10],
-				isWall: true	
-			}
-		}	
-		for (let i = 3; i < 10; i++) {
-			defaultMap[10][i] = {
-				...defaultMap[10][i],
-				isWall: true	
-			}
-		}
-	}
-	
+	// Removes the walls from the room
 	let renderRoom = (room) => {
-		/*
-		room.height: 17
-		room.width: 15
-		room.x 1
-		room.y 8
-
-		room.height: 19
-		room.width: 16
-		room.x 28
-		room.y 4
-		*/
-		//Draw some walls
 		for (let y = room.y; y < room.y+room.height; y++) {
 			for (let x = room.x; x < room.x+room.width; x++) {
 				defaultMap[y][x] = {
@@ -151,7 +124,6 @@ export var configure = () => {
 	
 	
 	//placeWeapons();
-	//placeWalls();
 	//placeMonsters();
 	//placePotions();
 
