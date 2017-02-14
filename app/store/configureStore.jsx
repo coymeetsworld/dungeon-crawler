@@ -1,6 +1,6 @@
 import { combineReducers, createStore, compose } from 'redux';
 import { dungeonMapReducer, characterReducer} from 'reducers';
-import {Container} from 'Container';
+import {splitContainer, Container} from 'Container';
 
 const MAP_DIMENSIONS_COLUMNS = 50;
 const MAP_DIMENSIONS_ROWS = 30;
@@ -8,8 +8,12 @@ const MAP_DIMENSIONS_ROWS = 30;
 
 export var configure = () => {
 	
-	let container = new Container(0,0,5,10);	
+																//x,y,width,height
+	let container = new Container(0,0,MAP_DIMENSIONS_COLUMNS,MAP_DIMENSIONS_ROWS);	
 	console.log(container.toString());
+	let sc = splitContainer(container, 2); //returns a BSPTree
+	console.log(sc.getLeaves());
+	
 	
 	
 	const reducer = combineReducers({

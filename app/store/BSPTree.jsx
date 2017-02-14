@@ -5,9 +5,6 @@
 export class BSPTree {
 	
 	
-	random(min, max) {
-		return Math.floor(Math.random() * (max - min + 1) + min);
-	}
 	
 	constructor(leaf) {
 		this.leaf = leaf;
@@ -15,7 +12,7 @@ export class BSPTree {
 		this.rightChild = undefined;
 	}
 
-	// prints root node	
+	// prints root node, don't want this when getting containers.
 	getTree() {
 		if (this.leftChild === undefined && this.rightChild === undefined) {
 			return [this.leaf];
