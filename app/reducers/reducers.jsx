@@ -13,7 +13,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 		// If character is going on a tile with a weapon, remove it from the map (it will get added to character in another reducer.)
 		let checkForWeapon = (cell, x, y) => {
-			if (dungeonMap[y][x].containsWeapon) {					
+			if (dungeonMap[y][x].containsWeapon) {
 				cell = {
 					...cell,
 					containsWeapon: false,
@@ -27,13 +27,9 @@ export const dungeonMapReducer = (state = {}, action) => {
 			return cell;
 		}
 		
-		
-		// For early stages, well say potion heals 50 of your XP
 		let checkForPotion = (cell, x, y) => {
 			if (dungeonMap[y][x].containsPotion) {
 				let potion = dungeonMap[y][x].potion;	
-				console.log("Potion: ");
-				console.log(potion.restoreAmount);
 				cell = {
 					...cell,
 					containsPotion: false,

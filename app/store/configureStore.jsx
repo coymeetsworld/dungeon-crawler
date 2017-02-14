@@ -144,7 +144,6 @@ export var configure = () => {
 
 	let charX, charY;
 	let weaponRoomIndex = random(1, rooms.length-2); /* Not in beginning or end rooms */
-	console.log("WeaponRoomIndex: " + weaponRoomIndex);
 	
 	let weapon = {
 		name: 'Dagger',
@@ -152,17 +151,20 @@ export var configure = () => {
 	}
 	
 	rooms.map((room, roomIndex) => {
+		
+		let centerX = Math.floor(room.center.x);
+		let centerY = Math.floor(room.center.y);
+			
 		if (roomIndex === 0) {
 			//character spawn point
-			charX = Math.floor(room.center.x);
-			charY = Math.floor(room.center.y);
+			charX = centerX;
+			charY = centerY;
 			placeCharacter(defaultCharacter, charX, charY);
 		}	else if (roomIndex === rooms.length-1) {
 			//end point spawn
-			placeEnd(Math.floor(room.center.x), Math.floor(room.center.y));
+			placeEnd(centerX, centerY);
 		} else if (roomIndex === weaponRoomIndex) {
-			console.log("Placing weapon in");
-			placeWeapon(weapon, Math.floor(room.center.x), Math.floor(room.center.y));
+			placeWeapon(weapon, centerX, centerY);
 		}
 		else {
 			//Between the beginning and end rooms, need a mix of monsters and potions
@@ -174,13 +176,13 @@ export var configure = () => {
 					level: 1,
 					xp: 10 /* derive xp later based on stats of monster, for now simplify it by giving it as an attribute. */
 				}
-				placeMonster(monster, Math.floor(room.center.x), Math.floor(room.center.y));
+				placeMonster(monster, centerX, centerY);
 			} else {
 				let potion = {
 					name: 'Potion',
 					restoreAmount: 20
 				}
-				placePotion(potion, Math.floor(room.center.x), Math.floor(room.center.y));
+				placePotion(potion, centerX, centerY);
 			}
 		}
 		
