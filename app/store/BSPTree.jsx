@@ -16,4 +16,23 @@ export class BSPTree {
 		}
 		return [].concat(this.leftChild.getLeaves(), this.rightChild.getLeaves());
 	}
+	
+	toString(lvl) {
+		
+		if (!lvl) { lvl = 1; }
+		let str = `Level: ${lvl}\n Leaf: ${this.leaf.toString()}\n`;
+
+		if (this.leftChild) {
+			str += "Left Child:\n";
+			str += this.leftChild.toString(lvl+1);	
+		} 	
+		
+		if (this.rightChild) {
+			str += "Right Child:\n";
+			str += this.rightChild.toString(lvl+1);	
+		}
+								
+		return str + "\n";
+	}
+
 }

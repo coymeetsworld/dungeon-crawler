@@ -3,11 +3,8 @@ import { dungeonMapReducer, characterReducer} from 'reducers';
 import {splitContainer, Container} from 'Container';
 import {Room} from 'Room';
 
-//const MAP_DIMENSIONS_COLUMNS = 75;
-//const MAP_DIMENSIONS_ROWS = 40;
-//const ITERATIONS = 3; // Number used to determine how many containers will get created.
-const MAP_DIMENSIONS_COLUMNS = 50;
-const MAP_DIMENSIONS_ROWS = 30;
+const MAP_DIMENSIONS_COLUMNS = 65;
+const MAP_DIMENSIONS_ROWS = 35;
 const ITERATIONS = 3; // Number used to determine how many containers will get created.
 
 
@@ -109,18 +106,58 @@ export var configure = () => {
 	}
 
 
+	let renderPath = (lContainer, rContainer) => {
+		
+		let p1x = Math.floor(lContainer.center.x);
+		let p1y = Math.floor(lContainer.center.y);
+
+		let p2x = Math.floor(rContainer.center.x);
+		let p2y = Math.floor(rContainer.center.y);
+		
+		if (p1y === p2y) {
+			for (let x = p1x; x < p2x; x++) {
+				defaultMap[p1y][x] = {
+					...defaultMap[p1y][x],
+					isWall: false	
+				}
+			}
+		} else if (p1x === p2x) {
+			for (let y = p1y; y < p2y; y++) {
+				defaultMap[y][p1x] = {
+					...defaultMap[y][p1x],
+					isWall: false	
+				}
+			}
+		}
+	}
+	
+	let renderPaths = (tree) => {
+		if (tree.leftChild !== undefined && tree.rightChild !== undefined) {
+			renderPath(tree.leftChild.leaf, tree.rightChild.leaf);
+			renderPaths(tree.leftChild);
+			renderPaths(tree.rightChild);
+		}
+	}
+
+
 	//Create dungeon rooms
 																//x,y,width,height
 	let container = new Container(0,0,MAP_DIMENSIONS_COLUMNS,MAP_DIMENSIONS_ROWS);	
 	let containerTree = splitContainer(container, ITERATIONS); //returns a BSPTree
+	//console.log(containerTree.toString()); // print out BSPTree
 	let leaves = containerTree.getLeaves();
+	//console.log(leaves);
+	//console.log("---------");
 	let rooms = leaves.map((leaf) => {
+		//console.log(leaf.toString());
 		return new Room(leaf);		
 	});
-	console.log("Rooms");
-	console.log(rooms);
-	
 	rooms.map((room)=> renderRoom(room));
+
+	renderPaths(containerTree);
+
+	
+	
 	
 	
 	//placeWeapons();

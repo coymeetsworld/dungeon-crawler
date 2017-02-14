@@ -1,7 +1,7 @@
 import {random, Container} from 'Container';
 
 
-const PADDING_MIN_MULTIPLIER = 0;
+const PADDING_MIN_MULTIPLIER = 1;
 const PADDING_MAX_MULTIPLIER = 3;
 
 // Room is inside a container. Size of the room grows to a random padding from 0->1/3rd of the room size (for each side).
