@@ -30,7 +30,8 @@ module.exports = {
 			reducers: 'app/reducers/reducers.jsx',
 			configureStore: 'app/store/configureStore.jsx',
 			BSPTree: 'app/store/BSPTree.jsx',
-			Container: 'app/store/Container.jsx'
+			Container: 'app/store/Container.jsx',
+			Room: 'app/store/Room.jsx'
 		},
 		extensions: ['', '.js', '.jsx']
 	},

@@ -77,17 +77,3 @@ export class Container {
 		return `Container:\nCoordinates: (${this.x}, ${this.y})\nCenter: (${this.center.x}, ${this.center.y})\nWidth: ${this.width}\nHeight: ${this.height}`;
 	}
 }
-
-	/*let tree = new BSPTree('x');
-	let ltree = new BSPTree('a');
-	let rtree = new BSPTree('b');
-	tree.leftChild = ltree;
-	tree.rightChild = rtree;
-	
-	let ltree2 = new BSPTree('c');
-	ltree.leftChild = ltree2;
-	let rtree2 = new BSPTree('d');
-	ltree.rightChild = rtree2;
-	tree.leftChild = ltree;
-	console.log(tree.getTree());
-	console.log(tree.getLeaves());*/
