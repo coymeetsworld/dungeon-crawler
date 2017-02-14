@@ -1,5 +1,4 @@
-import {random, Container} from 'Container';
-
+import {random, Container, Point} from 'Container';
 
 const PADDING_MIN_MULTIPLIER = 0;
 const PADDING_MAX_MULTIPLIER = 3;
@@ -18,6 +17,12 @@ export class Room {
 		// this was in example, typo?
 		//this.h -= random(PADDING_MIN_MULTIPLIER, this.width/PADDING_MAX_MULTIPLIER);
 		this.height -= random(PADDING_MIN_MULTIPLIER, this.width/PADDING_MAX_MULTIPLIER);
+		
+		this.center = new Point(
+			this.x + (this.width/2),
+			this.y + (this.height/2)
+		);
+		
 	}
 	
 }

@@ -1,6 +1,6 @@
 import { combineReducers, createStore, compose } from 'redux';
 import { dungeonMapReducer, characterReducer} from 'reducers';
-import {splitContainer, Container} from 'Container';
+import {splitContainer, Container, random} from 'Container';
 import {Room} from 'Room';
 
 const MAP_DIMENSIONS_COLUMNS = 50;
@@ -15,23 +15,11 @@ export var configure = () => {
 		dungeon: dungeonMapReducer
 	});
 	
-	let placeWeapons = () => {
-		//Place weapons
-		defaultMap[5][5] = {
-			...defaultMap[5][5],
+	let placeWeapon = (weapon, x, y) => {
+		defaultMap[y][x] = {
+			...defaultMap[y][x],
 			containsWeapon: true,
-			weapon: {
-				name: 'Club',
-				attack: 10
-			}
-		}
-		defaultMap[12][18] = {
-			...defaultMap[12][18],
-			containsWeapon: true,
-			weapon: {
-				name: 'Dagger',
-				attack: 15
-			}
+			weapon: weapon
 		}
 	}	
 	
@@ -172,19 +160,35 @@ export var configure = () => {
 	
 	//Let's put character in root of tree.	
 
-	let charLeaf = containerTree.getCharLeaf();
-	console.log(charLeaf);	
+	let charX, charY;
+	let weaponRoomIndex = random(1, rooms.length-2); /* Not in beginning or end rooms */
+	console.log("WeaponRoomIndex: " + weaponRoomIndex);
 	
-	let charX = Math.floor(charLeaf.center.x);
-	let charY = Math.floor(charLeaf.center.y);
-	placeCharacter(defaultCharacter, charX, charY);
+	let weapon = {
+		name: 'Dagger',
+		attack: 15
+	}
+	
+	rooms.map((room, roomIndex) => {
+		if (roomIndex === 0) {
+			//character spawn point
+			charX = Math.floor(room.center.x);
+			charY = Math.floor(room.center.y);
+			placeCharacter(defaultCharacter, charX, charY);
+		}	else if (roomIndex === rooms.length-1) {
+			//end point spawn
+			placeEnd(Math.floor(room.center.x), Math.floor(room.center.y));
+		} else if (roomIndex === weaponRoomIndex) {
+			console.log("Placing weapon in");
+			placeWeapon(weapon, Math.floor(room.center.x), Math.floor(room.center.y));
+		}
+		else {
+			//Between the beginning and end rooms, need a mix of monsters and potions
+		}
+		
+	});	
 
 
-	let endLeaf = containerTree.getEndLeaf();
-	console.log(endLeaf);	
-	let endX = Math.floor(endLeaf.center.x);
-	let endY = Math.floor(endLeaf.center.y);
-	placeEnd(endX, endY);
 
 	//placeWeapons();
 	//placeMonsters();
