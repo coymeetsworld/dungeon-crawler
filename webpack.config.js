@@ -31,7 +31,8 @@ module.exports = {
 			configureStore: 'app/store/configureStore.jsx',
 			BSPTree: 'app/store/BSPTree.jsx',
 			Container: 'app/store/Container.jsx',
-			Room: 'app/store/Room.jsx'
+			Room: 'app/store/Room.jsx',
+			DungeonCreator: 'app/store/DungeonCreator.jsx'
 		},
 		extensions: ['', '.js', '.jsx']
 	},
