@@ -2,6 +2,7 @@ import React from 'react';
 import Tile from 'Tile';
 import {setLocation, characterMove, collectWeapon} from 'actions';
 import {connect} from 'react-redux';
+import throttle from 'lodash/throttle';
 
 export class DungeonMap extends React.Component {
 
@@ -24,12 +25,10 @@ export class DungeonMap extends React.Component {
 	}
 
 	componentDidMount() {
-		//console.log("Map mounts");
-		window.addEventListener("keydown", this.onkeydown);
+		window.addEventListener("keydown", throttle(this.onkeydown, 95));
 	}
 
 	componentWillUnmount() {
-		//console.log("Map unmounts");
 		window.removeEventListener("keydown", this.onkeydown);
 	}
 
