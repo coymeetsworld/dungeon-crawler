@@ -1,3 +1,5 @@
+import {createDungeon} from 'DungeonCreator';
+
 export const dungeonMapReducer = (state = {}, action) => {
 
 	let characterMove = (state, direction) => {
@@ -42,6 +44,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 			}
 			return cell;	
 		}
+		
 		
 		let fightMonster = (cell) => {
 			
@@ -121,10 +124,30 @@ export const dungeonMapReducer = (state = {}, action) => {
 			});
 		}
 
+
+		let generateNextLevel = () => {
+			
+			console.log(state);
+			let nextMap = createDungeon(character, state.level+1)
+			
+			return {
+				...state,
+				map: nextMap,
+				level: state.level+1,
+				character, /* components changed in createDungeon, has x and y */
+				charLoc: {x: character.x, y: character.y}
+			}
+			
+		}
+		
+		
 		switch(direction) {
 			case 'LEFT':
-
 				if (charX-1 >= 0 && !dungeonMap[charY][charX-1].isWall) {
+					if (dungeonMap[charY][charX-1].isExit) {
+						console.log("Character going through exit");
+						return generateNextLevel();
+					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX-1, y: charY});
 					return {
 						...state,
@@ -137,6 +160,10 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'RIGHT':
 				if (charX+1 < mapWidth && !dungeonMap[charY][charX+1].isWall) {
+					if (dungeonMap[charY][charX+1].isExit) {
+						console.log("Character going through exit");
+						return generateNextLevel();
+					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX+1, y: charY});
 					return {
 						...state,
@@ -149,6 +176,10 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'UP':
 				if (charY-1 >= 0 && !dungeonMap[charY-1][charX].isWall) {
+					if (dungeonMap[charY-1][charX].isExit) {
+						console.log("Character going through exit");
+						return generateNextLevel();
+					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX, y: charY-1});
 					return {
 						...state,
@@ -161,6 +192,10 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 			case 'DOWN':
 				if (charY+1 < mapHeight && !dungeonMap[charY+1][charX].isWall) {
+					if (dungeonMap[charY+1][charX].isExit) {
+						console.log("Character going through exit");
+						return generateNextLevel();
+					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX, y: charY+1});
 					return {
 						...state,

@@ -17,6 +17,7 @@ export class HUD extends React.Component {
 				<span className="character-attribute">Weapon: {character.weapon ? character.weapon.name : 'none'}</span>					
 				<span className="character-attribute">XP: {character.xp}</span>
 				<span className="character-attribute">To next level: TBD</span>
+				<span className="character-attribute">Dungeon Level: {this.props.dungeon.level}</span>
 			</div>
 		)
 	}
