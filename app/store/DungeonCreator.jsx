@@ -1,5 +1,8 @@
 import {splitContainer, Container, random} from 'Container';
 import { Room } from 'Room';
+import * as MonsterCreator from 'MonsterCreator';
+import * as HealthItemCreator from 'HealthItemCreator';
+import * as WeaponCreator from 'WeaponCreator';
 
 export const MAP_DIMENSIONS_COLUMNS = 50;
 export const MAP_DIMENSIONS_ROWS = 25;
@@ -75,11 +78,11 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 		}
 	}	
 	
-	let placePotion = (potion, x, y) => {
+	let placeMedItem = (medItem, x, y) => {
 		defaultMap[y][x] = {
 			...defaultMap[y][x],
 			containsPotion: true,
-			potion: potion
+			potion: medItem
 		}
 	}
 	
@@ -134,48 +137,91 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 	
 	//Let's put character in root of tree.	
 
+
+	let weapon = undefined;
+	let monsters = [];
+	let medItems = [];	
+	
+	switch(dungeonLevel) {
+		case 1:
+			weapon = WeaponCreator.createWoodClub();
+			monsters.push(MonsterCreator.createSlime());	
+			monsters.push(MonsterCreator.createSlime());	
+			monsters.push(MonsterCreator.createSlime());	
+			monsters.push(MonsterCreator.createSlime());	
+			monsters.push(MonsterCreator.createGnome());	
+			monsters.push(MonsterCreator.createGnome());	
+			medItems.push(HealthItemCreator.createMedicalPack());
+			break;
+		case 2:
+			weapon = WeaponCreator.createBattleAxe();
+			monsters.push(MonsterCreator.createSlime());	
+			monsters.push(MonsterCreator.createSlime());	
+			monsters.push(MonsterCreator.createGnome());	
+			monsters.push(MonsterCreator.createGnome());	
+			monsters.push(MonsterCreator.createSkeleton());	
+			monsters.push(MonsterCreator.createSkeleton());	
+			medItems.push(HealthItemCreator.createMedicalPack());
+			medItems.push(HealthItemCreator.createMedicalPack());
+			medItems.push(HealthItemCreator.createMedicalPack());
+			break;
+		
+		case 3:
+			weapon = WeaponCreator.createSword();
+			monsters.push(MonsterCreator.createImp());	
+			monsters.push(MonsterCreator.createImp());	
+			monsters.push(MonsterCreator.createImp());	
+			monsters.push(MonsterCreator.createImp());	
+			monsters.push(MonsterCreator.createOrc());	
+			monsters.push(MonsterCreator.createOrc());	
+			medItems.push(HealthItemCreator.createPotion());
+			medItems.push(HealthItemCreator.createPotion());
+			medItems.push(HealthItemCreator.createPotion());
+			break;
+			
+		case 4:
+			weapon = WeaponCreator.createLightningSword();
+			monsters.push(MonsterCreator.createFireSkull());	
+			monsters.push(MonsterCreator.createFireSkull());	
+			monsters.push(MonsterCreator.createFireSkull());	
+			monsters.push(MonsterCreator.createDragon());	
+			medItems.push(HealthItemCreator.createPotion());
+			medItems.push(HealthItemCreator.createPotion());
+			medItems.push(HealthItemCreator.createPotion());
+			medItems.push(HealthItemCreator.createPotion());
+		
+			break;
+			
+		default:
+			console.log("Error, should not have gotten here! dungeonLevel=" + dungeonLevel);
+	}
+
+
+	//Place character at room 0
+	defaultCharacter.x = Math.floor(rooms[0].center.x);
+	defaultCharacter.y = Math.floor(rooms[0].center.y);
+	placeCharacter(defaultCharacter, defaultCharacter.x, defaultCharacter.y);
+	
+	//Place end point spawn at last room
+	placeEnd(Math.floor(rooms[rooms.length-1].center.x),Math.floor(rooms[rooms.length-1].center.y));
+	
 	let weaponRoomIndex = random(1, rooms.length-2); /* Not in beginning or end rooms */
-	let weapon = {
-		name: 'Dagger',
-		attack: 15
+	placeWeapon(weapon, Math.floor(rooms[weaponRoomIndex].center.x), Math.floor(rooms[weaponRoomIndex].center.y));
+
+	while(monsters.length > 0) {
+		let randIndex = random(1, rooms.length-2); //Not start or end point	
+		let cx = random(rooms[randIndex].x, rooms[randIndex].x+rooms[randIndex].width-1);
+		let cy = random(rooms[randIndex].y, rooms[randIndex].y+rooms[randIndex].height-1);
+		placeMonster(monsters.shift(), cx, cy);
 	}
 	
-	let monster = {
-		hp: 25,
-		strength: 35,
-		level: 1,
-		xp: 10 /* derive xp later based on stats of monster, for now simplify it by giving it an attribute. */
-	}
-
-	let potion = {
-		name: 'Potion',
-		restoreAmount: 20
-	}
-
-	rooms.map((room, roomIndex) => {
+	while(medItems.length > 0) {
+		let randIndex = random(1, rooms.length-2); //Not start or end point	
+		let cx = random(rooms[randIndex].x, rooms[randIndex].x+rooms[randIndex].width-1);
+		let cy = random(rooms[randIndex].y, rooms[randIndex].y+rooms[randIndex].height-1);
+		placeMedItem(medItems.shift(), cx, cy);
 		
-		let centerX = Math.floor(room.center.x);
-		let centerY = Math.floor(room.center.y);
-			
-		if (roomIndex === 0) {
-			//Character spawn point
-			defaultCharacter.x = centerX;
-			defaultCharacter.y = centerY;
-			placeCharacter(defaultCharacter, defaultCharacter.x, defaultCharacter.y);
-		}	else if (roomIndex === rooms.length-1) {
-			//end point spawn
-			placeEnd(centerX, centerY);
-		} else if (roomIndex === weaponRoomIndex) {
-			placeWeapon(weapon, centerX, centerY);
-		}
-		else {
-			if (Math.round(Math.random())) {
-				placeMonster(monster, centerX, centerY);
-			} else {
-				placePotion(potion, centerX, centerY);
-			}
-		}
-	});	
+	}
 
 	return defaultMap;
 }

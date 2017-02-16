@@ -32,7 +32,10 @@ module.exports = {
 			BSPTree: 'app/store/BSPTree.jsx',
 			Container: 'app/store/Container.jsx',
 			Room: 'app/store/Room.jsx',
-			DungeonCreator: 'app/store/DungeonCreator.jsx'
+			DungeonCreator: 'app/store/DungeonCreator.jsx',
+			HealthItemCreator: 'app/store/HealthItemCreator.jsx',
+			MonsterCreator: 'app/store/MonsterCreator.jsx',
+			WeaponCreator: 'app/store/WeaponCreator.jsx'
 		},
 		extensions: ['', '.js', '.jsx']
 	},

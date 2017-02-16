@@ -52,7 +52,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 			let monster = cell.monster;
 			if (character.weapon) { charStrength += character.weapon.attack; }					
 			let monsterHP = monster.hp - charStrength;
-			let charHP = character.hp - monster.strength;
+			let charHP = character.hp - monster.str;
 			
 			if (charHP <= 0) {
 				charHP = 0;
@@ -66,10 +66,43 @@ export const dungeonMapReducer = (state = {}, action) => {
 			
 			if (monsterHP <= 0) {
 				
-				// need to decide leveling up later
 				character = {
 					...character,
 					xp: character.xp + monster.xp
+				}
+				
+				if (character.level === 1 && character.xp >= 40) {
+					character = {
+						...character,
+						level: 2,
+						maxhp: 200,
+						hp: 200,
+						str: 10,
+					}	
+				} else if (character.level === 2 && character.xp >= 80) {
+					character = {
+						...character,
+						level: 3,
+						maxhp: 350,
+						hp: 350,
+						str: 20,
+					}
+				} else if (character.level === 3 && character.xp >= 135) {
+					character = {
+						...character,
+						level: 4,
+						maxhp: 700,
+						hp: 700,
+						str: 35,
+					}
+				} else if (character.level === 4 && character.xp >= 340) {
+					character = {
+						...character,
+						level: 5,
+						maxhp: 1000,
+						hp: 1000,
+						str: 75,
+					}
 				}
 				
 				return {
