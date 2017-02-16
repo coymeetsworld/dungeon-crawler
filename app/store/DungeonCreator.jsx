@@ -156,18 +156,17 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 	switch(dungeonLevel) {
 		case 1:
 			weapon = WeaponCreator.createWoodClub();
-			monsters.push(MonsterCreator.createSlime());	
+			monsters.push(MonsterCreator.createSlime()); //40xp total
 			monsters.push(MonsterCreator.createSlime());	
 			monsters.push(MonsterCreator.createSlime());	
 			monsters.push(MonsterCreator.createSlime());	
 			monsters.push(MonsterCreator.createGnome());	
 			monsters.push(MonsterCreator.createGnome());	
-			medItems.push(HealthItemCreator.createMedicalPack());
 			medItems.push(HealthItemCreator.createMedicalPack());
 			break;
 		case 2:
 			weapon = WeaponCreator.createBattleAxe();
-			monsters.push(MonsterCreator.createSlime());	
+			monsters.push(MonsterCreator.createSlime()); //80xp total	
 			monsters.push(MonsterCreator.createSlime());	
 			monsters.push(MonsterCreator.createGnome());	
 			monsters.push(MonsterCreator.createGnome());	
@@ -180,7 +179,7 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 		
 		case 3:
 			weapon = WeaponCreator.createSword();
-			monsters.push(MonsterCreator.createImp());	
+			monsters.push(MonsterCreator.createImp()); //240xp total	
 			monsters.push(MonsterCreator.createImp());	
 			monsters.push(MonsterCreator.createImp());	
 			monsters.push(MonsterCreator.createImp());	
@@ -194,7 +193,7 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 			
 		case 4:
 			weapon = WeaponCreator.createLightningSword();
-			monsters.push(MonsterCreator.createFireSkull());	
+			monsters.push(MonsterCreator.createFireSkull());	// 240xp for fireskulls
 			monsters.push(MonsterCreator.createFireSkull());	
 			monsters.push(MonsterCreator.createFireSkull());	
 			monsters.push(MonsterCreator.createDragon());	

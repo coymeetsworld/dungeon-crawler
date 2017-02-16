@@ -23,10 +23,10 @@ export let createOrc = () => {
 
 // Mini bosses found on Lvl 4
 export let createFireSkull = () => {
-	return { name: 'fireskull', hp: 200, str: 100, xp: 80 }	
+	return { name: 'fireskull', hp: 200, str: 90, xp: 80 }	
 }
 
 // Final boss
 export let createDragon = () => {
-	return { name: 'dragon', hp: 900, str: 200, xp: 300 }	
+	return { name: 'dragon', hp: 750, str: 125, xp: 300 }	
 }

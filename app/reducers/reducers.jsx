@@ -90,19 +90,19 @@ export const dungeonMapReducer = (state = {}, action) => {
 						maxhp: 350,
 						str: 20,
 					}
-				} else if (character.level === 3 && character.xp >= 135) {
+				} else if (character.level === 3 && character.xp >= 320) {
 					character = {
 						...character,
 						level: 4,
 						maxhp: 700,
 						str: 35,
 					}
-				} else if (character.level === 4 && character.xp >= 340) {
+				} else if (character.level === 4 && character.xp >= 550) {
 					character = {
 						...character,
 						level: 5,
 						maxhp: 1000,
-						str: 75,
+						str: 65,
 					}
 				}
 				
