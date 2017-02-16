@@ -66,6 +66,11 @@ export const dungeonMapReducer = (state = {}, action) => {
 			
 			if (monsterHP <= 0) {
 				
+				if(monster.name === 'dragon') {
+					//Win condition
+					console.log("You win!!!!");
+				}
+				
 				character = {
 					...character,
 					xp: character.xp + monster.xp
@@ -76,7 +81,6 @@ export const dungeonMapReducer = (state = {}, action) => {
 						...character,
 						level: 2,
 						maxhp: 200,
-						hp: 200,
 						str: 10,
 					}	
 				} else if (character.level === 2 && character.xp >= 80) {
@@ -84,7 +88,6 @@ export const dungeonMapReducer = (state = {}, action) => {
 						...character,
 						level: 3,
 						maxhp: 350,
-						hp: 350,
 						str: 20,
 					}
 				} else if (character.level === 3 && character.xp >= 135) {
@@ -92,7 +95,6 @@ export const dungeonMapReducer = (state = {}, action) => {
 						...character,
 						level: 4,
 						maxhp: 700,
-						hp: 700,
 						str: 35,
 					}
 				} else if (character.level === 4 && character.xp >= 340) {
@@ -100,7 +102,6 @@ export const dungeonMapReducer = (state = {}, action) => {
 						...character,
 						level: 5,
 						maxhp: 1000,
-						hp: 1000,
 						str: 75,
 					}
 				}

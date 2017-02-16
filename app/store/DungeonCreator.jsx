@@ -94,7 +94,15 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 		}
 	}
 	
-	
+	// Makes sure no items or monsters are added to same cell.
+	let cellIsEmpty = (x, y) => {
+		return !defaultMap[y][x].containsCharacter
+				&& !defaultMap[y][x].containsMonster
+				&& !defaultMap[y][x].containsWeapon
+				&& !defaultMap[y][x].containsPotion
+				&& !defaultMap[y][x].isExit
+				&& !defaultMap[y][x].isWall; //for good measure on wall
+	}
 	
 	// Create default map initializing each element as a tile with nothing in it as a wall.
 	//Paths and rooms will be carved out next and then items/weapons/monsters/character/exit will be added afterwards.
@@ -113,6 +121,9 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 			});
 		}
 	}
+	
+	
+	
 
 	//Create dungeon rooms
 																//x,y,width,height
@@ -152,6 +163,7 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 			monsters.push(MonsterCreator.createGnome());	
 			monsters.push(MonsterCreator.createGnome());	
 			medItems.push(HealthItemCreator.createMedicalPack());
+			medItems.push(HealthItemCreator.createMedicalPack());
 			break;
 		case 2:
 			weapon = WeaponCreator.createBattleAxe();
@@ -177,6 +189,7 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 			medItems.push(HealthItemCreator.createPotion());
 			medItems.push(HealthItemCreator.createPotion());
 			medItems.push(HealthItemCreator.createPotion());
+			medItems.push(HealthItemCreator.createPotion());
 			break;
 			
 		case 4:
@@ -185,6 +198,8 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 			monsters.push(MonsterCreator.createFireSkull());	
 			monsters.push(MonsterCreator.createFireSkull());	
 			monsters.push(MonsterCreator.createDragon());	
+			medItems.push(HealthItemCreator.createPotion());
+			medItems.push(HealthItemCreator.createPotion());
 			medItems.push(HealthItemCreator.createPotion());
 			medItems.push(HealthItemCreator.createPotion());
 			medItems.push(HealthItemCreator.createPotion());
@@ -203,7 +218,9 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 	placeCharacter(defaultCharacter, defaultCharacter.x, defaultCharacter.y);
 	
 	//Place end point spawn at last room
-	placeEnd(Math.floor(rooms[rooms.length-1].center.x),Math.floor(rooms[rooms.length-1].center.y));
+	if (dungeonLevel < 4) { //last room
+		placeEnd(Math.floor(rooms[rooms.length-1].center.x),Math.floor(rooms[rooms.length-1].center.y));
+	}
 	
 	let weaponRoomIndex = random(1, rooms.length-2); /* Not in beginning or end rooms */
 	placeWeapon(weapon, Math.floor(rooms[weaponRoomIndex].center.x), Math.floor(rooms[weaponRoomIndex].center.y));
@@ -212,14 +229,14 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 		let randIndex = random(1, rooms.length-2); //Not start or end point	
 		let cx = random(rooms[randIndex].x, rooms[randIndex].x+rooms[randIndex].width-1);
 		let cy = random(rooms[randIndex].y, rooms[randIndex].y+rooms[randIndex].height-1);
-		placeMonster(monsters.shift(), cx, cy);
+		if (cellIsEmpty(cx,cy)) {	placeMonster(monsters.shift(), cx, cy); }
 	}
 	
 	while(medItems.length > 0) {
 		let randIndex = random(1, rooms.length-2); //Not start or end point	
 		let cx = random(rooms[randIndex].x, rooms[randIndex].x+rooms[randIndex].width-1);
 		let cy = random(rooms[randIndex].y, rooms[randIndex].y+rooms[randIndex].height-1);
-		placeMedItem(medItems.shift(), cx, cy);
+		if (cellIsEmpty(cx,cy)) {	placeMedItem(medItems.shift(), cx, cy); }
 		
 	}
 
