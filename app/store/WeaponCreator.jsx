@@ -1,12 +1,12 @@
 
 export let createWoodClub = () => {
-	return {name: 'Wood club', attack: 8}
+	return {name: 'wood club', attack: 8}
 }
 export let createBattleAxe = () => {
-	return {name: 'Battle axe', attack: 15}
+	return {name: 'battle axe', attack: 15}
 }
 export let createSword = () => {
-	return {name: 'Sword', attack: 25}
+	return {name: 'sword', attack: 25}
 }
 export let createLightningSword = () => {
 	return {name: 'Lightning Sword', attack: 75}
