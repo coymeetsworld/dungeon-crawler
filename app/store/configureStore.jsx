@@ -28,7 +28,7 @@ export let configure = () => {
 	let defaultLevel = 1;
 	let defaultMap = createDungeon(defaultCharacter, defaultLevel);
 	
-	let initialState = { dungeon: {map: defaultMap, level: defaultLevel, width: MAP_DIMENSIONS_COLUMNS, height: MAP_DIMENSIONS_ROWS, character: defaultCharacter, charLoc: {x: defaultCharacter.x, y: defaultCharacter.y}} };
+	let initialState = { dungeon: {map: defaultMap, level: defaultLevel, width: MAP_DIMENSIONS_COLUMNS, height: MAP_DIMENSIONS_ROWS, character: defaultCharacter, charLoc: {x: defaultCharacter.x, y: defaultCharacter.y}, endCondition: null } };
 	
 	const store = createStore(reducer, initialState, compose(
 		window.devToolsExtension ? window.devToolsExtension() : f => f

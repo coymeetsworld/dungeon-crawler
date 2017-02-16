@@ -31,7 +31,7 @@ export class DungeonMap extends React.Component {
 	componentWillUnmount() {
 		window.removeEventListener("keydown", this.onkeydown);
 	}
-
+	
 
 	render() {
 		

@@ -9,6 +9,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 		let charX = state.charLoc.x;
 		let charY = state.charLoc.y;
 		let character = state.character;
+		let playerWin = null;
+		let playerLose = null;
 
 		let newDungeonMap = undefined;
 		let newCharLoc = state.charLoc; // Keep the same unless character actually moves.
@@ -57,7 +59,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 			if (charHP <= 0) {
 				charHP = 0;
 				console.log("GAME OVER! Character is dead!");
-				//make exit status later
+				playerLose = true;
 			}
 			character = {					
 				...character,
@@ -67,8 +69,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 			if (monsterHP <= 0) {
 				
 				if(monster.name === 'dragon') {
-					//Win condition
 					console.log("You win!!!!");
+					playerWin = true;
 				}
 				
 				character = {
@@ -183,11 +185,20 @@ export const dungeonMapReducer = (state = {}, action) => {
 						return generateNextLevel();
 					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX-1, y: charY});
+					
+					let endCondition = state.endCondition;
+					if (playerWin) {							
+						endCondition = "WIN";
+					} else if (playerLose) {
+						endCondition = "LOSE";
+					}
+					
 					return {
 						...state,
 						map: newDungeonMap,
 						character,
-						charLoc: newCharLoc
+						charLoc: newCharLoc,
+						endCondition
 					}
 				}
 				break;
@@ -199,11 +210,20 @@ export const dungeonMapReducer = (state = {}, action) => {
 						return generateNextLevel();
 					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX+1, y: charY});
+
+					let endCondition = state.endCondition;
+					if (playerWin) {							
+						endCondition = "WIN";
+					} else if (playerLose) {
+						endCondition = "LOSE";
+					}
+
 					return {
 						...state,
 						map: newDungeonMap,
 						character,
-						charLoc: newCharLoc
+						charLoc: newCharLoc,
+						endCondition
 					}
 				}
 				break;
@@ -215,11 +235,20 @@ export const dungeonMapReducer = (state = {}, action) => {
 						return generateNextLevel();
 					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX, y: charY-1});
+
+					let endCondition = state.endCondition;
+					if (playerWin) {							
+						endCondition = "WIN";
+					} else if (playerLose) {
+						endCondition = "LOSE";
+					}
+					
 					return {
 						...state,
 						map: newDungeonMap,
 						character,
-						charLoc: newCharLoc
+						charLoc: newCharLoc,
+						endCondition
 					}
 				}
 				break;
@@ -231,13 +260,23 @@ export const dungeonMapReducer = (state = {}, action) => {
 						return generateNextLevel();
 					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX, y: charY+1});
+
+					let endCondition = state.endCondition;
+					if (playerWin) {							
+						endCondition = "WIN";
+					} else if (playerLose) {
+						endCondition = "LOSE";
+					}
+					
 					return {
 						...state,
 						map: newDungeonMap,
 						character,
-						charLoc: newCharLoc
+						charLoc: newCharLoc,
+						endCondition
 					}
 				}
+				break;
 		}
 
 		return state;
