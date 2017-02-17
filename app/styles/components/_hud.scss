@@ -44,3 +44,31 @@
 	padding-top: 1.5em;
 	color: white;
 }
+
+.toggle-god-view {
+  background: #ff73ce;
+  background-image: -webkit-linear-gradient(top, #ff73ce, #8f5e8f);
+  background-image: -moz-linear-gradient(top, #ff73ce, #8f5e8f);
+  background-image: -ms-linear-gradient(top, #ff73ce, #8f5e8f);
+  background-image: -o-linear-gradient(top, #ff73ce, #8f5e8f);
+  background-image: linear-gradient(to bottom, #ff73ce, #8f5e8f);
+	border: 0;
+  font-family: Arial;
+  color: #ffffff;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+}
+
+.toggle-god-view:hover {
+	cursor: pointer;
+  background: #ff73ce;
+  background-image: -webkit-linear-gradient(top, #ff73ce, #8f5e8f);
+  background-image: -moz-linear-gradient(top, #ff73ce, #8f5e8f);
+  background-image: -ms-linear-gradient(top, #ff73ce, #8f5e8f);
+  background-image: -o-linear-gradient(top, #ff73ce, #8f5e8f);
+  background-image: linear-gradient(to bottom, #ff73ce, #8f5e8f);
+  text-decoration: none;
+}
+.toggle-god-view:focus { //prevents blue highlighting in chrome on button
+	outline:0;
+}

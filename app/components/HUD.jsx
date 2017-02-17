@@ -78,7 +78,7 @@ export class HUD extends React.Component {
 					<span className="character-attribute">XP: {character.xp}</span>
 					{printWeapon()}
 					<span className="character-attribute">Dungeon Level: {this.props.dungeon.level}</span>
-					<button onClick={() => {dispatch(toggleGodView())}}>{gameMode()}</button>
+					<button className="toggle-god-view" onClick={() => {dispatch(toggleGodView())}}>{gameMode()}</button>
 				</div>
 			)
 		}
