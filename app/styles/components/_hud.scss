@@ -12,9 +12,15 @@
 		color: limegreen;
 		font-weight: 200;
 	}
+	
+	.low-hp {
+		color: red;
+	}
 }
 
 .win-banner {
+	font-size: 3em;
+	font-weight: 800;
 	margin: 0 auto;
 	text-align: center;
 	padding-top: 1.2em;
@@ -22,9 +28,19 @@
 	color: limegreen;
 }
 .lose-banner {
+	font-size: 3em;
+	font-weight: 800;
 	margin: 0 auto;
 	text-align: center;
 	padding-top: 1.2em;
 	padding-bottom: 0.75em;
 	color: red;
+}
+
+.end-screen {
+	font-size: 2em;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 1.5em;
+	color: white;
 }

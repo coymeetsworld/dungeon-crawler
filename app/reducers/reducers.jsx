@@ -184,8 +184,6 @@ export const dungeonMapReducer = (state = {}, action) => {
 
 		let generateLevel = (level) => {
 			
-			console.log(state);
-			console.log(level);
 			let nextMap = createDungeon(character, level);
 			
 			return {

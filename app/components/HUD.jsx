@@ -18,18 +18,25 @@ export class HUD extends React.Component {
 			)
 		}
 		
+		let printHP = () => {
+			if (character.hp/character.maxhp < 0.25) {
+			  return <span className="low-hp">{character.hp}/{character.maxhp}</span>
+			}
+			return <span>{character.hp}/{character.maxhp}</span>
+		}
+		
 		let character = this.props.dungeon.character;
 
 		if (this.props.dungeon.endCondition === 'WIN') {
 			return (
 				<div className="win-banner">						
-					YOU WIN!!!!				
+					YOU DEFEATED THE DRAGON!!!
 				</div>
 			)	
 		} else if (this.props.dungeon.endCondition === 'LOSE') {
 			return (
 				<div className="lose-banner">
-					YOU LOSE!!!!	
+					GAME OVER
 				</div>
 			)
 		} 
@@ -38,7 +45,7 @@ export class HUD extends React.Component {
 				<div className="character-attributes">
 					<span className="character-attribute">Name: {character.name}</span>
 					<span className="character-attribute">Level: {character.level}</span>
-					<span className="character-attribute">HP: {character.hp}/{character.maxhp}</span>
+					<span className="character-attribute">HP: {printHP()}</span>
 					{printWeapon()}
 					<span className="character-attribute">XP: {character.xp}</span>
 					<span className="character-attribute">To next level: TBD</span>
