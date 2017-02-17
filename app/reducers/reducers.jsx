@@ -3,6 +3,7 @@ import {createDungeon} from 'DungeonCreator';
 export const dungeonMapReducer = (state = {}, action) => {
 
 	let characterMove = (state, direction) => {
+		
 		let dungeonMap = state.map;
 		let mapWidth = state.width;
 		let mapHeight = state.height;
@@ -11,6 +12,12 @@ export const dungeonMapReducer = (state = {}, action) => {
 		let character = state.character;
 		let playerWin = null;
 		let playerLose = null;
+		
+		if (state.endCondition) {
+			//At this point game was over and user pushed a key, indicating they would like to start the game over.
+				
+		}
+		
 
 		let newDungeonMap = undefined;
 		let newCharLoc = state.charLoc; // Keep the same unless character actually moves.
@@ -161,15 +168,16 @@ export const dungeonMapReducer = (state = {}, action) => {
 		}
 
 
-		let generateNextLevel = () => {
+		let generateLevel = (level) => {
 			
 			console.log(state);
-			let nextMap = createDungeon(character, state.level+1)
+			console.log(level);
+			let nextMap = createDungeon(character, level);
 			
 			return {
 				...state,
 				map: nextMap,
-				level: state.level+1,
+				level,
 				character, /* components changed in createDungeon, has x and y */
 				charLoc: {x: character.x, y: character.y}
 			}
@@ -181,8 +189,8 @@ export const dungeonMapReducer = (state = {}, action) => {
 			case 'LEFT':
 				if (charX-1 >= 0 && !dungeonMap[charY][charX-1].isWall) {
 					if (dungeonMap[charY][charX-1].isExit) {
-						console.log("Character going through exit");
-						return generateNextLevel();
+						console.log("Character going through exit" + state.level);
+						return generateLevel(state.level+1);
 					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX-1, y: charY});
 					
@@ -207,7 +215,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 				if (charX+1 < mapWidth && !dungeonMap[charY][charX+1].isWall) {
 					if (dungeonMap[charY][charX+1].isExit) {
 						console.log("Character going through exit");
-						return generateNextLevel();
+						return generateLevel(state.level+1);
 					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX+1, y: charY});
 
@@ -232,7 +240,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 				if (charY-1 >= 0 && !dungeonMap[charY-1][charX].isWall) {
 					if (dungeonMap[charY-1][charX].isExit) {
 						console.log("Character going through exit");
-						return generateNextLevel();
+						return generateLevel(state.level+1);
 					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX, y: charY-1});
 
@@ -257,7 +265,7 @@ export const dungeonMapReducer = (state = {}, action) => {
 				if (charY+1 < mapHeight && !dungeonMap[charY+1][charX].isWall) {
 					if (dungeonMap[charY+1][charX].isExit) {
 						console.log("Character going through exit");
-						return generateNextLevel();
+						return generateLevel(state.level+1);
 					}
 					newDungeonMap = rescanMap({x: charX, y: charY}, {x: charX, y: charY+1});
 

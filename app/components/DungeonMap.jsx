@@ -37,6 +37,7 @@ export class DungeonMap extends React.Component {
 		
 		let {dispatch, dungeon, character} = this.props;
 		let dungeonMap = dungeon.map;
+		let endCondition = dungeon.endCondition;
 		
 		/* Will use to put items, walls, monsters, etc. For now just character. */
 		let getTileClasses = (x, y) => {
@@ -53,6 +54,17 @@ export class DungeonMap extends React.Component {
 			} else if (dungeonMap[x][y].isExit) {
 				return "exit";
 			}
+		}
+
+
+		let generateTable = () => {
+			return (
+				<table>
+					<tbody>
+						{generateMap()}
+					</tbody>
+				</table>
+			)
 		}
 
 		let generateMap = () => {				
@@ -73,13 +85,16 @@ export class DungeonMap extends React.Component {
 			return map;	
 		}
 		
+		if (endCondition) {
+			return (
+				<div className="end-screen">
+					Press any key to start back to Level 1
+				</div>
+			)			
+		}
 		return (
 			<div>
-				<table>
-					<tbody>
-						{generateMap()}
-					</tbody>					
-				</table>
+				{generateTable()}	
 			</div>
 		);
 	}
