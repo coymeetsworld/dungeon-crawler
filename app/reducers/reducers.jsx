@@ -68,14 +68,20 @@ export const dungeonMapReducer = (state = {}, action) => {
 			return cell;	
 		}
 		
+		// Randomizes amount of damage based on attack.
+		let dealDamage = (atk) => {
+			let glancingBlow = atk*0.7;
+			let criticalHit = atk*1.2;
+			return Math.floor(Math.random() * (criticalHit - glancingBlow +1) + glancingBlow);
+		}
 		
 		let fightMonster = (cell) => {
 			
 			let charStrength = character.str;
 			let monster = cell.monster;
 			if (character.weapon) { charStrength += character.weapon.attack; }					
-			let monsterHP = monster.hp - charStrength;
-			let charHP = character.hp - monster.str;
+			let monsterHP = monster.hp - dealDamage(charStrength);
+			let charHP = character.hp - dealDamage(monster.str);
 			
 			if (charHP <= 0) {
 				charHP = 0;
