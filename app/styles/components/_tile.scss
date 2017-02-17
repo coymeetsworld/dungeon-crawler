@@ -7,6 +7,7 @@ table {
 }
 td {
 	border: solid 1px black; /* just in for debugging purposes */
+	//border: 0;
 	background-color: #bbb;
 	width: 1em;
 	height: 1em;
@@ -16,7 +17,11 @@ td {
 	}
 	
 	&.wall {
-		background-color: black;
+		background-color: #3f250b;
+	}
+	
+	&.outside-los {
+		background-color: black;	
 	}
 	
 	&.weapon {

@@ -38,11 +38,22 @@ export class DungeonMap extends React.Component {
 		let {dispatch, dungeon, character} = this.props;
 		let dungeonMap = dungeon.map;
 		let endCondition = dungeon.endCondition;
+		let charLocation = dungeon.charLoc;
+		
+		// LOS within 3 tiles left-right or up-down of character
+		let withinLOS = (x,y) => {
+			return ( (x <= charLocation.x+3 && x >= charLocation.x-3) && (y <= charLocation.y+3 && y >= charLocation.y-3));
+		}
+		
 		
 		/* Will use to put items, walls, monsters, etc. For now just character. */
 		let getTileClasses = (x, y) => {
+			
+			if (!withinLOS(y,x)) { return "outside-los"; }
+			
 			if (dungeonMap[x][y].containsCharacter) {
 				return "character-position";
+				//Make tiles around visible
 			} else if (dungeonMap[x][y].isWall) {
 				return "wall";
 			} else if (dungeonMap[x][y].containsWeapon) {
