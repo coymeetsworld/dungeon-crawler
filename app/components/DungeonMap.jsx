@@ -1,6 +1,6 @@
 import React from 'react';
 import Tile from 'Tile';
-import {setLocation, characterMove, collectWeapon} from 'actions';
+import {characterMove} from 'actions';
 import {connect} from 'react-redux';
 import throttle from 'lodash/throttle';
 
@@ -39,6 +39,7 @@ export class DungeonMap extends React.Component {
 		let dungeonMap = dungeon.map;
 		let endCondition = dungeon.endCondition;
 		let charLocation = dungeon.charLoc;
+		let godView = dungeon.godView;
 		
 		// LOS within 3 tiles left-right or up-down of character
 		let withinLOS = (x,y) => {
@@ -49,7 +50,7 @@ export class DungeonMap extends React.Component {
 		/* Will use to put items, walls, monsters, etc. For now just character. */
 		let getTileClasses = (x, y) => {
 			
-			if (!withinLOS(y,x)) { return "outside-los"; }
+			if (!godView && !withinLOS(y,x)) { return "outside-los"; }
 			
 			if (dungeonMap[x][y].containsCharacter) {
 				return "character-position";

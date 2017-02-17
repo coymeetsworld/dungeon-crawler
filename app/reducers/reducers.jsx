@@ -308,10 +308,19 @@ export const dungeonMapReducer = (state = {}, action) => {
 		return state;
 	}
 
+	let toggleGodView = (state) => {
+		console.log("Toggling God View");
+		return {
+			...state,
+			godView: !state.godView
+		}
+	}
 
 	switch (action.type) {
 		case 'CHARACTER_MOVE': 
 			return characterMove(state, action.direction);
+		case 'TOGGLE_GOD_VIEW':
+			return toggleGodView(state);
 		default:
 			return state;
 	}

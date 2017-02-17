@@ -1,11 +1,14 @@
 import React from 'react';
+import {toggleGodView} from 'actions';
 import {connect} from 'react-redux';
 
 
 export class HUD extends React.Component {
 
 	render() {
-		
+		let {dispatch, dungeon} = this.props;
+		let godView = dungeon.godView;
+			
 		let printWeapon = () => {
 			if (!character.weapon) {
 				return <span className="character-attribute">Weapon: none</span>	
@@ -43,6 +46,12 @@ export class HUD extends React.Component {
 			}	
 		}
 		
+		let gameMode = () => {
+			if (godView) {
+				return "Normal Mode";
+			}	
+			return "God Mode";	
+		}
 		
 		let character = this.props.dungeon.character;
 
@@ -69,6 +78,7 @@ export class HUD extends React.Component {
 					<span className="character-attribute">XP: {character.xp}</span>
 					{printWeapon()}
 					<span className="character-attribute">Dungeon Level: {this.props.dungeon.level}</span>
+					<button onClick={() => {dispatch(toggleGodView())}}>{gameMode()}</button>
 				</div>
 			)
 		}

@@ -4,3 +4,9 @@ export const characterMove = (direction) => {
 		direction
 	}
 }
+
+export const toggleGodView = () => {
+	return {
+		type: 'TOGGLE_GOD_VIEW',
+	}
+}
