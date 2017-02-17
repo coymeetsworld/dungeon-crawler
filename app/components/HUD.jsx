@@ -25,6 +25,25 @@ export class HUD extends React.Component {
 			return <span>{character.hp}/{character.maxhp}</span>
 		}
 		
+		let printXPForNextLvlUp = () => {
+			switch(character.level) {
+				case 1:
+					return 40 - character.xp
+				case 2:
+					return 80 - character.xp
+				case 3:
+					return 320 - character.xp	
+				case 4: 
+					return 550 - character.xp
+				case 5:
+					return "MAX"
+				default:
+					console.log("Error, should not have gotten here: ");
+					console.log(character);
+			}	
+		}
+		
+		
 		let character = this.props.dungeon.character;
 
 		if (this.props.dungeon.endCondition === 'WIN') {
@@ -44,11 +63,11 @@ export class HUD extends React.Component {
 			return(
 				<div className="character-attributes">
 					<span className="character-attribute">Name: {character.name}</span>
-					<span className="character-attribute">Level: {character.level}</span>
 					<span className="character-attribute">HP: {printHP()}</span>
-					{printWeapon()}
+					<span className="character-attribute">Level: {character.level}</span>
+					<span className="character-attribute">XP for next level: {printXPForNextLvlUp()}</span>
 					<span className="character-attribute">XP: {character.xp}</span>
-					<span className="character-attribute">To next level: TBD</span>
+					{printWeapon()}
 					<span className="character-attribute">Dungeon Level: {this.props.dungeon.level}</span>
 				</div>
 			)
