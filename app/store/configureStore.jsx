@@ -24,7 +24,7 @@ export let configure = () => {
 																 character: defaultCharacter, 
 																 charLoc: {x: defaultCharacter.x, y: defaultCharacter.y}, 
 																 endCondition: null,
-																 godView: false }};
+																 godView: true }};
 	
 	const store = createStore(reducer, initialState, compose(
 		window.devToolsExtension ? window.devToolsExtension() : f => f

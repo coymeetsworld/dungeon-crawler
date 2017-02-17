@@ -18,14 +18,14 @@ export let createDungeon = (defaultCharacter, dungeonLevel) => {
 		let p2y = Math.floor(rContainer.center.y);
 		
 		if (p1y === p2y) {
-			for (let x = p1x; x < p2x; x++) {
+			for (let x = p1x; x <= p2x; x++) {
 				defaultMap[p1y][x] = {
 					...defaultMap[p1y][x],
 					isWall: false	
 				}
 			}
 		} else if (p1x === p2x) {
-			for (let y = p1y; y < p2y; y++) {
+			for (let y = p1y; y <= p2y; y++) {
 				defaultMap[y][p1x] = {
 					...defaultMap[y][p1x],
 					isWall: false	

@@ -6,8 +6,7 @@ table {
 	border: solid 5px #3f250b; /* Also for debugging purposes */
 }
 td {
-	border: solid 1px black; /* just in for debugging purposes */
-	//border: 0;
+	border: 0;
 	background-color: #bbb;
 	width: 1em;
 	height: 1em;
@@ -30,6 +29,9 @@ td {
 	
 	&.monster {
 		background-color: red;
+	}
+	&.boss {
+		background-color: darkred;
 	}
 	&.potion {
 		background-color: #3366ff;
