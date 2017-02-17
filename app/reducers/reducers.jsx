@@ -1,4 +1,5 @@
 import {createDungeon} from 'DungeonCreator';
+import {createCharacter} from 'CharacterCreator';
 
 export const dungeonMapReducer = (state = {}, action) => {
 
@@ -10,17 +11,30 @@ export const dungeonMapReducer = (state = {}, action) => {
 		let charX = state.charLoc.x;
 		let charY = state.charLoc.y;
 		let character = state.character;
+		let newCharLoc = state.charLoc; // Keep the same unless character actually moves.
+
+		let newDungeonMap = undefined;
 		let playerWin = null;
 		let playerLose = null;
 		
 		if (state.endCondition) {
 			//At this point game was over and user pushed a key, indicating they would like to start the game over.
-				
+			character = createCharacter(); // Resets character
+			newDungeonMap = createDungeon(character, 1); //Create new dungeon at lvl 1
+			
+			return {
+				...state,
+				map: newDungeonMap,
+				level: 1,
+				character,
+				charLoc: {
+					x: character.x,
+					y: character.y
+				},
+				endCondition: null
+			}
 		}
-		
 
-		let newDungeonMap = undefined;
-		let newCharLoc = state.charLoc; // Keep the same unless character actually moves.
 
 		// If character is going on a tile with a weapon, remove it from the map (it will get added to character in another reducer.)
 		let checkForWeapon = (cell, x, y) => {
