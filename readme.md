@@ -2,7 +2,7 @@
 
 ## Description
 
-This is an implementation of a [roguelike](https://en.wikipedia.org/wiki/Roguelike) [dungeon crawler](https://en.wikipedia.org/wiki/Dungeon_crawl) which is subgenre to a role-playing game where the player goes through a series of randomly generated mazes to fight monsters and collect and use helpful items to advance to eventually fight and defeat a final boss.
+This is an implementation of a [roguelike](https://en.wikipedia.org/wiki/Roguelike) [dungeon crawler](https://en.wikipedia.org/wiki/Dungeon_crawl) which is subgenre to a role-playing game where the player goes through a series of randomly generated mazes to fight monsters and collect helpful items to use throughout the game. To win in the game the player must traverse through multiple levels of the dungeon to find and defeat a final boss.
 
 The game is in 2D and uses a tile-based format where each space in the dungeon may contain one of the following:
 
@@ -10,6 +10,7 @@ The game is in 2D and uses a tile-based format where each space in the dungeon m
  * monster
  * weapon
  * potion
+ * entrance to next level
 
 The game is also turn-based, meaning time progresses after each discrete move a user makes. For example, standing next to a monster and not moving doesn't engage the monster nor does the monster engage you. Advancing into the tile where the monster is will start combat and both monster and character will trade damage for one turn. The user must keep advancing into the tile to defeat the monster. If the monster is defeated, then it will be destroyed and the space opens up for the character to occupy.
 
