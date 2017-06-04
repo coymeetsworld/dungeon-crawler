@@ -6,11 +6,11 @@ This is an implementation of a [roguelike](https://en.wikipedia.org/wiki/Rogueli
 
 The game is in 2D and uses a tile-based format where each space in the dungeon may contain one of the following:
 
- * the hero (user)
- * monster
- * weapon
- * potion
- * entrance to next level
+ * the hero (user) (green tile)
+ * monster (red tile)
+ * weapon (gold tile)
+ * potion (blue tile)
+ * entrance to next level (white tile)
 
 The game is also turn-based, meaning time progresses after each discrete move a user makes. For example, standing next to a monster and not moving doesn't engage the monster nor does the monster engage you. Advancing into the tile where the monster is will start combat and both monster and character will trade damage for one turn. The user must keep advancing into the tile to defeat the monster. If the monster is defeated, then it will be destroyed and the space opens up for the character to occupy.
 
