@@ -29,7 +29,7 @@ There are 4 levels to progress through in this version of the game. As you advan
 The game display has two sections: the head-up display (HUD) and the game map.
 
 <div align="center">
-  <img src="images/readme-imgs/hud.png" alt="HUD preview."/>
+  <img src="images/readme-imgs/hud.jpg" alt="HUD preview."/>
 </div>
 
 The HUD provides useful information about the character's state, including their current and max HP, character level, XP, weapon, and dungeon level.
