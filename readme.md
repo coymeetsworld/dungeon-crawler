@@ -53,5 +53,3 @@ This Roguelike Dungeon Crawler was written by Coy Sanders as [React Project](htt
 software is licensed under the [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Copyright (c) 2017
-
-*[link to project description](https://www.freecodecamp.com/challenges/build-a-roguelike-dungeon-crawler-game)*
