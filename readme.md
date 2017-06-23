@@ -27,6 +27,8 @@ https://coymeetsworld.github.io/dungeon-crawler
 
 There are 4 levels to progress through in this version of the game. As you advance through levels the monsters get tougher to beat and the final level will have the strongest monster (the boss). However, as the character defeats monsters a proportional amount of [experience points](https://en.wikipedia.org/wiki/Experience_point) (XP) relative to the strength of the monster will be earned. As more XP is acquired, the character gets stronger and levels up, increasing their overall strength and hit points (HP). Each level will also contain potions that restore HP lost in previous battles and weapons that will increase damage dealt to monsters.
 
+### Display
+
 The game display has two sections: the head-up display (HUD) and the game map.
 
 <div align="center">
@@ -38,6 +40,12 @@ The HUD provides useful information about the character's state, including their
 <div align="center">
   <img src="images/readme-imgs/default-mode.png" alt="Default mode of the map."/>
 </div>
+
+### Movement
+
+A player can move the character using either the set of arrow-keys, or if they prefer to use their left hand, WASD keys are setup (W up, S down, A left, D right).
+
+### LOS
 
 By default the character has a limited range of visibility to view the current dungeon level. In the HUD, there is a button that can toggle between this mode and a God Mode which imposes no limit to the range as shown below.
 
