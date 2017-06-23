@@ -10,15 +10,19 @@ export class DungeonMap extends React.Component {
 		let {dispatch, character} = this.props;
 		switch(e.key) {
 			case "ArrowLeft": 
+			case "a": 
 				dispatch(characterMove('LEFT'));
 				break;
 			case "ArrowRight": 
+			case "d": 
 				dispatch(characterMove('RIGHT'));
 				break;
 			case "ArrowUp": 
+			case "w": 
 				dispatch(characterMove('UP'));
 				break;
 			case "ArrowDown": 
+			case "s": 
 				dispatch(characterMove('DOWN'));
 				break;
 		}
@@ -45,9 +49,8 @@ export class DungeonMap extends React.Component {
 		let withinLOS = (x,y) => {
 			return ( (x <= charLocation.x+3 && x >= charLocation.x-3) && (y <= charLocation.y+3 && y >= charLocation.y-3));
 		}
+
 		
-		
-		/* Will use to put items, walls, monsters, etc. For now just character. */
 		let getTileClasses = (x, y) => {
 			
 			if (!godView && !withinLOS(y,x)) { return "outside-los"; }
